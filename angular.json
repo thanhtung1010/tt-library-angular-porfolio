@@ -3,5 +3,41 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "tt-library-angular-porfolio": {
+      "projectType": "library",
+      "root": "projects/tt-library-angular-porfolio",
+      "sourceRoot": "projects/tt-library-angular-porfolio/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/tt-library-angular-porfolio/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/tt-library-angular-porfolio/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/tt-library-angular-porfolio/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/tt-library-angular-porfolio/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": false
   }
 }
