@@ -2,5 +2,7 @@
  * Public API Surface of tt-library-angular-porfolio
  */
 
-export * from './lib/_services/tt-library-angular-porfolio.service';
-export * from './lib/_components/tt-library-angular-porfolio.component';
+export * from './lib/_services';
+export * from './lib/_helpers';
+
+export * from './lib/_modules/public-api';

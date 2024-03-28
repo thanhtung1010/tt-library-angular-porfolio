@@ -19,11 +19,6 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "paths": {
-      "@tt-library-angular-porfolio": [
-        "./dist/tt-library-angular-porfolio"
-      ]
-    },
     "lib": [
       "ES2022",
       "dom"
