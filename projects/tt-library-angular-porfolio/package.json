@@ -1,8 +1,14 @@
 {
   "name": "tt-library-angular-porfolio",
   "version": "0.0.1",
-  "scripts": {
-    "publish": "publish"
+  "keywords": [],
+  "author": {
+    "name": "Trịnh Thanh Tùng",
+    "email": "trinhthanhtung1010@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thanhtung1010/tt-library-angular-porfolio"
   },
   "peerDependencies": {
     "@angular/common": "17.2.0",

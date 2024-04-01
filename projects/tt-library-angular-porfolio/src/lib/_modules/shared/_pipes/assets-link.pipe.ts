@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { ASSETS_TYPE } from "../../../_types";
 import { AppConfigService } from "../_services";
+import { ASSETS_TYPE } from "../_types";
 
 @Pipe({
   name: 'TTAssetsLink',
