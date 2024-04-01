@@ -1,6 +1,9 @@
 {
   "name": "tt-library-angular-porfolio",
   "version": "0.0.1",
+  "scripts": {
+    "publish": "publish"
+  },
   "peerDependencies": {
     "@angular/common": "17.2.0",
     "@angular/core": "17.2.0"
