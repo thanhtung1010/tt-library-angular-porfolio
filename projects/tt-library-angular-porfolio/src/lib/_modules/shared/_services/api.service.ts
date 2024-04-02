@@ -4,8 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppConfigService } from './app-config.service';
 import { CookieStorageHelper } from '../../../_helpers';
-import { isEmpty } from 'lodash';
-import { IApiBaseResponse, IApiObject } from '../_interfaces';
+import { IApiBaseResponse, IApiObject } from '../../../_interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +28,7 @@ export class APIService {
     let access_token = _cookie.get(appConfig?.apiUrl || '');
     let headers: HttpHeaders = new HttpHeaders();
 
-    if (!isEmpty(access_token)) {
+    if (!!access_token) {
       headers = headers.append('Authorization', `Bearer ${access_token}`);
     }
     headers = headers.append('Content-Language', _cookie.get(appConfig?.cookieStorageLangKey || ''));
@@ -137,7 +136,7 @@ export class APIService {
     let access_token = _cookie.get(appConfig?.apiUrl || '');
     let headers: HttpHeaders = new HttpHeaders();
 
-    if (!isEmpty(access_token)) {
+    if (!!access_token) {
       headers = headers.append('Authorization', `Bearer ${access_token}`);
     }
     headers = headers.append('Content-Language', _cookie.get(appConfig?.cookieStorageLangKey || ''));
@@ -192,7 +191,7 @@ export class APIService {
     let access_token = _cookie.get(appConfig?.apiUrl || '');
     let headers: HttpHeaders = new HttpHeaders();
 
-    if (!isEmpty(access_token)) {
+    if (!!access_token) {
       headers = headers.append('Authorization', `Bearer ${access_token}`);
     }
     headers = headers.append('Content-Language', _cookie.get(appConfig?.cookieStorageLangKey || ''));

@@ -1,5 +1,5 @@
 import { Inject, Injectable, InjectionToken } from "@angular/core";
-import { IAppConfig } from "../_interfaces";
+import { IAppConfig } from "../../../_interfaces";
 import { BehaviorSubject, Subject } from "rxjs";
 
 @Injectable({

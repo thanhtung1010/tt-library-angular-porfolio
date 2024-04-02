@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
-import { isEmpty } from "lodash";
 
 /**
  * Base on file menu-icons to generate
@@ -18,7 +17,7 @@ export class SvgIconPipe implements PipeTransform {
     args?: any
   ): any {
     try {
-      if (!iconId || isEmpty(iconId)) return null;
+      if (!iconId.length) return null;
       const _style = custom ? custom["style"] : null;
       const _cls = custom ? custom["class"] : null;
       const _text = `<svg ${_style

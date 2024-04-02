@@ -1,34 +1,11 @@
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, TemplateRef } from '@angular/core';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
-import { NzGridModule } from 'ng-zorro-antd/grid';
-import { NzCollapseModule } from 'ng-zorro-antd/collapse';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
-import { TranslateModule } from '@ngx-translate/core';
-// import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
-import { NzTableModule } from 'ng-zorro-antd/table';
-import { NzPaginationModule } from 'ng-zorro-antd/pagination';
-import { EmptyComponent } from '../empty/empty.component';
-import { SvgIconPipe } from '../../_pipes/svg-icon.pipe';
-import { IApiBaseMeta, ITableLayoutProps } from '../../_interfaces';
+import { IApiBaseMeta, ITableLayoutProps } from '../../../../_interfaces';
 import { AppConfigService } from '../../_services/app-config.service';
 
 @Component({
   selector: 'tt-table-layout',
-  templateUrl: './table-layout.component.html',
-  standalone: true,
-  imports: [
-    CommonModule,
-    NzGridModule,
-    NzCollapseModule,
-    NzToolTipModule,
-    TranslateModule,
-    SvgIconPipe,
-    // NzPopconfirmModule,
-    NzTableModule,
-    NzPaginationModule,
-    EmptyComponent,
-  ],
+  templateUrl: './table-layout.component.html'
 })
 export class TableLayoutComponent implements OnChanges {
   @Input() props: ITableLayoutProps | undefined;
