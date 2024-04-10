@@ -1,7 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { ReplaySubject, Observable } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
-import { size } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +21,7 @@ export class LazyLoadScriptService {
         script.type = 'text/javascript';
         script.src = url;
 
-        if (customAttribute && size(customAttribute)) {
+        if (customAttribute && typeof customAttribute === 'object' && Object.keys(customAttribute).length) {
           script.defer = !!customAttribute['defer'];
 
           // do something else

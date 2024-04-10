@@ -5,6 +5,7 @@
 export * from './shared/_interceptors/http.interceptors';
 export * from './shared/_services';
 export * from './shared/_pipes';
+export * from './shared/_components';
 
 export * from './shared/shared.module';
 

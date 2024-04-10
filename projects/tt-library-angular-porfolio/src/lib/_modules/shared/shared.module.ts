@@ -14,13 +14,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
-import { EmptyComponent, TableLayoutComponent } from "./_components";
-
 @NgModule({
-  declarations: [
-    EmptyComponent,
-    TableLayoutComponent,
-  ],
   imports: [
     NzEmptyModule,
     CommonModule,
@@ -32,10 +26,6 @@ import { EmptyComponent, TableLayoutComponent } from "./_components";
     NzTableModule,
     NzPaginationModule,
   ],
-  exports: [
-    EmptyComponent,
-    TableLayoutComponent,
-  ]
 })
 
 export class SharedModule {
