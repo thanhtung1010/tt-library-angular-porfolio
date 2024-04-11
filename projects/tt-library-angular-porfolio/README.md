@@ -22,18 +22,13 @@ This project was used with:
 | --------------------------------- | ------ |
 | @angular/animations               | 17.2.0 |
 | @angular/common                   | 17.2.0 |
-| @angular/compiler                 | 17.2.0 |
 | @angular/core                     | 17.2.0 |
-| @angular/forms                    | 17.2.0 |
 | @angular/platform-browser         | 17.2.0 |
 | @angular/platform-browser-dynamic | 17.2.0 |
-| @angular/router                   | 17.2.0 |
 | @ngx-translate/core               | 15.0.0 |
 | @ngx-translate/http-loader        | 8.0.0  |
 | ng-zorro-antd                     | 17.2.0 |
 | rxjs                              | 7.8.0  |
-| tslib                             | 2.3.0  |
-| zone.js                           | 0.14.3 |
 
 ## Code scaffolding
 
