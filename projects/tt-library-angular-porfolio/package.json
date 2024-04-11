@@ -1,6 +1,6 @@
 {
   "name": "tt-library-angular-porfolio",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [],
   "author": {
     "name": "Trịnh Thanh Tùng",
@@ -11,6 +11,17 @@
     "url": "https://github.com/thanhtung1010/tt-library-angular-porfolio"
   },
   "peerDependencies": {
+    "@angular/animations": "17.2.0",
+    "@angular/common": "17.2.0",
+    "@angular/core": "17.2.0",
+    "@angular/platform-browser": "17.2.0",
+    "@angular/platform-browser-dynamic": "17.2.0",
+    "@ngx-translate/core": "15.0.0",
+    "@ngx-translate/http-loader": "8.0.0",
+    "ng-zorro-antd": "17.2.0",
+    "rxjs": "7.8.0"
+  },
+  "dependencies": {
     "@angular/animations": "17.2.0",
     "@angular/common": "17.2.0",
     "@angular/compiler": "17.2.0",
@@ -25,9 +36,6 @@
     "rxjs": "7.8.0",
     "tslib": "2.3.0",
     "zone.js": "0.14.3"
-  },
-  "dependencies": {
-    "tslib": "2.3.0"
   },
   "sideEffects": false
 }
