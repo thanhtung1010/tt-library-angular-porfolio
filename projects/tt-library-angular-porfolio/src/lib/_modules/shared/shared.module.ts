@@ -2,7 +2,7 @@ import { ModuleWithProviders, NgModule } from "@angular/core";
 import { IAppConfig } from "../../_interfaces";
 import { APP_CONFIG_TOKEN, AppConfigService } from "./_services/app-config.service";
 import { APIService } from "./_services/api.service";
-import { LangService } from "./_services";
+import { CommonService, DeviceIdService, LangService, MenuService } from "./_services";
 import { CommonModule } from '@angular/common';
 
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
@@ -40,7 +40,10 @@ export class SharedModule {
         },
         AppConfigService,
         APIService,
-        LangService
+        LangService,
+        CommonService,
+        DeviceIdService,
+        MenuService,
       ]
     }
   }

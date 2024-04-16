@@ -1,5 +1,6 @@
-import { ILang } from "../_interfaces";
+import { ILang, IMenuItem } from "../_interfaces";
 import { LANG_TYPE } from "../_types";
+import { ROUTE } from "./route.enum";
 
 
 export const DEFAULT_LANG: LANG_TYPE = 'vi';
@@ -14,19 +15,38 @@ export const LANG_LIST: Array<ILang> = [
   }
 ];
 
-export const ROUTE = {
-  MANAGEMENT: 'management',
-  NOT_FOUND: 'not-found',
-  PORTFOLIO: '',
+export const MENU: Array<IMenuItem> = [
+  {
+    label: "MENU.HOME",
+    show: true,
+    href: ROUTE.PORTFOLIO + '/' + ROUTE.PORTFOLIO_HOME,
+    active: true,
+  },
+  {
+    label: "MENU.ABOUT_ME",
+    show: true,
+    href: ROUTE.PORTFOLIO + '/' + ROUTE.PORTFOLIO_ABOUT_ME,
+    active: false,
+  },
+  // {
+  //   label: "MENU.WORK_EXP",
+  //   queryParams: QUERYPARAMS_NAV.WORK_EXP,
+  //   show: true,
+  // },
+  // {
+  //   label: "MENU.SKILL",
+  //   queryParams: QUERYPARAMS_NAV.SKILL,
+  //   show: true,
+  // },
+  // {
+  //   label: "MENU.PERSONAL_PROJECT",
+  //   queryParams: QUERYPARAMS_NAV.PERSONAL_PROJECT,
+  //   show: true,
+  // },
+  // {
+  //   label: "MENU.CONTACT_INFOR",
+  //   queryParams: QUERYPARAMS_NAV.CONTACT_INFOR,
+  //   show: true,
+  // },
+];
 
-  PORTFOLIO_HOME: 'home',
-  PORTFOLIO_ABOUT_ME: 'about-me',
-
-  OUTSIDE_MANAGEMENT: 'auth',
-  OUTSIDE_MANAGEMENT_LOGIN: '',
-  OUTSIDE_MANAGEMENT_LOGOUT: 'log-out',
-
-  INSIDE_MANAGEMENT: 'home',
-  INSIDE_HOME_MANAGEMENT: 'manager-home-page',
-  INSIDE_ABOUT_ME_MANAGEMENT: 'manager-about-me-page',
-};
