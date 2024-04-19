@@ -1,5 +1,4 @@
 import { ILang, IMenuItem } from "../_interfaces";
-import { LANG_TYPE } from "../_types";
 import { ROUTE } from "./route.enum";
 
 
@@ -50,3 +49,13 @@ export const MENU: Array<IMenuItem> = [
   // },
 ];
 
+export type htmlATagTarget = '_blank' |  '_parent' | '_self' | '_top';
+
+export type ASSETS_TYPE = 'png' | 'svg' | 'i18n';
+
+export type ANT_TABLE_ELEMENT_FIELD_TYPE = "text" | "dateTime" | "date" | "number" | "float" | "statusType" | "checkbox"
+| "select" | "object" | "array" | "translate" | "hasChildColumn" | "view";
+
+export type HTML_A_ELEMENT_TARGET = '_blank' |  '_parent' | '_self' | '_top';
+
+export type LANG_TYPE = 'vi' | 'en';

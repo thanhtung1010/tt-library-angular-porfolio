@@ -10,8 +10,9 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { EmptyComponent } from '../empty/empty.component';
 import { SvgIconPipe } from '../../_pipes/svg-icon.pipe';
-import { IApiBaseMeta, ITableLayoutProps } from '../../../../_interfaces';
-import { AppConfigService } from '../../_services/app-config.service';
+import { IApiBaseMeta, ITableLayoutProps } from '../../_interfaces';
+import { AppConfigService } from '../../_modules/shared/_services/app-config.service';
+import { SharedModule } from '../../_modules/public-api';
 
 @Component({
   selector: 'tt-table-layout',
@@ -28,6 +29,7 @@ import { AppConfigService } from '../../_services/app-config.service';
     NzTableModule,
     NzPaginationModule,
     EmptyComponent,
+    SharedModule,
   ],
 })
 export class TableLayoutComponent implements OnChanges {

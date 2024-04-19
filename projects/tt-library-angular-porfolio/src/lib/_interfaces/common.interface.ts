@@ -1,4 +1,4 @@
-import { LANG_TYPE } from "../_types";
+import { LANG_TYPE } from "../_enums";
 
 export interface ILang {label: string, lang: LANG_TYPE};
 
