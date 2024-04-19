@@ -1,4 +1,4 @@
-import { ANT_TABLE_ELEMENT_FIELD_TYPE } from "../_types";
+import { ANT_TABLE_ELEMENT_FIELD_TYPE } from "../_enums";
 
 export interface IAntTableElement<T> {
   field: T;

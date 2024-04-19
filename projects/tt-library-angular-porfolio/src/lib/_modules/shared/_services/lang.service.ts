@@ -1,8 +1,7 @@
-import { Injectable, inject } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { BehaviorSubject } from "rxjs";
-import { LANG_TYPE } from "../../../_types";
-import { DEFAULT_LANG, LANG_LIST } from "../../../_enums";
+import { DEFAULT_LANG, LANG_LIST, LANG_TYPE } from "../../../_enums";
 import { ILang } from "../../../_interfaces";
 import { CookieStorageHelper } from "../../../_helpers";
 import { AppConfigService } from "./app-config.service";
