@@ -1,0 +1,10 @@
+<div class="tt-not_found">
+  <div class="tt-not_found-content">
+    <tt-empty [nzNotFoundImage]="'not-found' | TTAssetsLink:'svg'"></tt-empty>
+    <tt-link-button-layout [href]="'/home'" [target]="'_self'">
+      <ng-container hrefContent>
+        <button nz-button [nzShape]="'round'">{{'BUTTON.BACK_TO_HOME' | translate}}</button>
+      </ng-container>
+    </tt-link-button-layout>
+  </div>
+</div>

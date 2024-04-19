@@ -1,0 +1,12 @@
+
+<!-- <ng-container *ngIf="showLogo || showText"> -->
+<ng-container *ngIf="showLogo">
+  <div [class]="'tt-logo ' + customCls">
+    <ng-container *ngIf="showLogo">
+      <img [class]="customCls" [src]="'logo' | TTAssetsLink:'svg'" alt="logo" [style]="customImgStyle">
+    </ng-container>
+    <!-- <ng-container *ngIf="showText">
+      <h1>{{'COMMON.LOGO' | translate}}</h1>
+    </ng-container> -->
+  </div>
+</ng-container>
