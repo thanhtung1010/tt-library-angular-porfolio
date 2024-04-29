@@ -1,4 +1,5 @@
-import { ILang, IMenuItem } from "../_interfaces";
+import { InjectionToken } from "@angular/core";
+import { IAppConfig, ILang, IMenuItem } from "../_interfaces";
 import { ROUTE } from "./route.enum";
 
 
@@ -59,3 +60,5 @@ export type ANT_TABLE_ELEMENT_FIELD_TYPE = "text" | "dateTime" | "date" | "numbe
 export type HTML_A_ELEMENT_TARGET = '_blank' |  '_parent' | '_self' | '_top';
 
 export type LANG_TYPE = 'vi' | 'en';
+
+export const APP_CONFIG_TOKEN = new InjectionToken<IAppConfig>('appConfig');

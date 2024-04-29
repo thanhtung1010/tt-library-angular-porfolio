@@ -1,6 +1,7 @@
-import { Inject, Injectable, InjectionToken } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { IAppConfig } from "../../../_interfaces";
 import { BehaviorSubject } from "rxjs";
+import { APP_CONFIG_TOKEN } from "../../../_enums";
 
 @Injectable({
   providedIn: 'root'
@@ -20,4 +21,3 @@ export class AppConfigService {
   }
 }
 
-export const APP_CONFIG_TOKEN = new InjectionToken<IAppConfig>('appConfig');

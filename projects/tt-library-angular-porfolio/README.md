@@ -28,6 +28,7 @@ This project was used with:
 | @ngx-translate/core               | 15.0.0 |
 | @ngx-translate/http-loader        | 8.0.0  |
 | device-uuid                       | 1.0.4  |
+| firebase                          | 10.8.1 |
 | ng-zorro-antd                     | 17.2.0 |
 | rxjs                              | 7.8.0  |
 

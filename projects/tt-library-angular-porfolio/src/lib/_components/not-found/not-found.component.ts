@@ -4,6 +4,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { AssetsLink } from '../../_pipes';
 import { EmptyComponent } from '../empty/empty.component';
+import { ROUTE } from '../../_enums';
 
 @Component({
   selector: 'tt-not-found',
@@ -18,6 +19,7 @@ import { EmptyComponent } from '../empty/empty.component';
   ],
 })
 export class NotFoundComponent implements OnInit {
+  route = ROUTE;
 
   constructor() { }
 
