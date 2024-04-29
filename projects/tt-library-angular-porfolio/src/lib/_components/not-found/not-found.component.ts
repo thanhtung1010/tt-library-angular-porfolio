@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { LinkButtonLayoutComponent } from '../link-button-layout/link-button-layout.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AssetsLink } from '../../_pipes';
 import { EmptyComponent } from '../empty/empty.component';
 import { ROUTE } from '../../_enums';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'tt-not-found',
@@ -20,10 +21,17 @@ import { ROUTE } from '../../_enums';
 })
 export class NotFoundComponent implements OnInit {
   route = ROUTE;
+  titleSEO: string = 'SEO.TITLE_NOT_FOUND';
 
-  constructor() { }
+  constructor(
+    private titleService: Title,
+    private translateService: TranslateService,
+  ) { }
 
   ngOnInit() {
+    this.translateService.get(this.titleSEO).subscribe(resp => {
+      this.titleService.setTitle(resp);
+    });
   }
 
 }
