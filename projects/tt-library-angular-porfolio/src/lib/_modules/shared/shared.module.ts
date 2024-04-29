@@ -1,8 +1,14 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { IAppConfig } from "../../_interfaces";
-import { APP_CONFIG_TOKEN, AppConfigService } from "./_services/app-config.service";
-import { APIService } from "./_services/api.service";
-import { CommonService, DeviceIdService, LangService, MenuService } from "./_services";
+import { AppConfigService } from "./_services/app-config.service";
+import {
+  CommonService,
+  DeviceIdService,
+  LangService,
+  MenuService,
+  APIService,
+  FirebaseService,
+} from './_services';
 import { CommonModule } from '@angular/common';
 
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
@@ -13,6 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { APP_CONFIG_TOKEN } from "../../_enums";
 
 @NgModule({
   imports: [
@@ -39,6 +46,7 @@ export class SharedModule {
           useValue: config,
         },
         AppConfigService,
+        FirebaseService,
         APIService,
         LangService,
         CommonService,
