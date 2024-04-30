@@ -8,12 +8,21 @@ import { APP_CONFIG_TOKEN } from "../../../_enums";
 })
 
 export class AppConfigService {
+  private _appInit: boolean = false;
   private _config = new BehaviorSubject<IAppConfig | null>(null);
   constructor(@Inject(APP_CONFIG_TOKEN) private appConfigToken: IAppConfig) {}
 
   get appConfig(): IAppConfig {
     const _config: any = this._config.value;
     return _config;
+  }
+
+  get appInit(): boolean {
+    return this._appInit;
+  }
+
+  set appInit(value: boolean) {
+    this._appInit = value;
   }
 
   initAppConfig() {
