@@ -12,8 +12,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
-        with:
-          ssh-key: ${{secrets.SSH_GIT_ACTION}}
 
       - name: Node
         uses: actions/setup-node@v4.0.2
@@ -29,8 +27,8 @@ jobs:
              && npm version patch
 
       - name: Push new version
-        run: git config --global user.name 'thanhtung1010'
-             && git config --global user.email 'trinhthanhtung1010@gmail.com'
+        run: git config user.name "github-actions[checkout]"
+             && git config user.email "41898282+github-actions[checkout]@users.noreply.github.com"
              && git add .
              && git commit -m "update lib version"
              && git push
