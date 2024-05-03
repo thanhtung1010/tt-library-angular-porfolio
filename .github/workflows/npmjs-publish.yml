@@ -10,33 +10,34 @@ jobs:
     name: "tt-library-angular-porfolio"
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v4.1.1
 
-      - name: node
+      - name: Node
         uses: actions/setup-node@v4.0.2
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org
 
-      - name: install
+      - name: Install
         run: npm i
 
-      - name: update patch version
+      - name: Update patch version
         run: cd projects/tt-library-angular-porfolio
              && npm version patch
 
-      - name: push new version
+      - name: Push new version
         run: cd ../../
+             && git config --global --add safe.directory /home/runner/work/tt-library-angular-porfolio/tt-library-angular-porfolio
              && git config --global user.name 'thanhtung1010'
              && git config --global user.email 'trinhthanhtung1010@gmail.com'
              && git commit -m "update lib version"
              && git push
 
-      - name: build
+      - name: Build
         run: npm run build
 
-      - name: publish
+      - name: Publish
         run: npm publish ./dist/tt-library-angular-porfolio -access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
