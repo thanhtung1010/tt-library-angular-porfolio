@@ -27,7 +27,7 @@ jobs:
              && npm version patch
 
       - name: Push new version
-        run: cd ../../
+        run: git status
              && git commit -m "update lib version"
              && git push
 
