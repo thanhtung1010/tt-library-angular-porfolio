@@ -76,19 +76,19 @@ export class CommonService {
     }
   }
 
-  copyToClipboard(content: any) {
+  copyToClipboard(content: any, msg?: {success: string, error: string}) {
     try {
       window.navigator.clipboard.writeText(content)
       .then(resp => {
-        this.showSuccess();
+        this.showSuccess(msg?.success ?? '');
       })
       .catch(error => {
         console.error('error window.navigator.clipboard', error);
-        this.showError();
+        this.showError(msg?.error ?? '');
       })
     } catch (error) {
       console.error('error copyToClipboard', error);
-      this.showError();
+      this.showError(msg?.error ?? '');
     }
   }
 }
