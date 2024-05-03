@@ -28,9 +28,6 @@ jobs:
 
       - name: Push new version
         run: cd ../../
-             && git config --global --add safe.directory /home/runner/work/tt-library-angular-porfolio/tt-library-angular-porfolio
-             && git config --global user.name 'thanhtung1010'
-             && git config --global user.email 'trinhthanhtung1010@gmail.com'
              && git commit -m "update lib version"
              && git push
 
