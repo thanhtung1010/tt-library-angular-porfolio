@@ -24,14 +24,14 @@ jobs:
 
       - name: update patch version
         run: cd projects/tt-library-angular-porfolio
-             npm version patch
+             && npm version patch
 
       - name: push new version
         run: cd ../../
-             git config --global user.name 'thanhtung1010'
-             git config --global user.email 'trinhthanhtung1010@gmail.com'
-             git commit -m "update lib version"
-             git push
+             && git config --global user.name 'thanhtung1010'
+             && git config --global user.email 'trinhthanhtung1010@gmail.com'
+             && git commit -m "update lib version"
+             && git push
 
       - name: build
         run: npm run build
