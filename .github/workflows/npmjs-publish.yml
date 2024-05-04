@@ -10,18 +10,8 @@ jobs:
     name: "tt-library-angular-porfolio"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.1.1
-      - name: Update patch version
-        run: |
-             cd projects/tt-library-angular-porfolio
-             npm version patch
-      - name: Push new version
-        run: |
-             git config --global user.name 'thanhtung1010'
-             git config --global user.email 'trinhthanhtung1010@gmail.com'
-             git add .
-             git commit -m "[auto] update lib version"
-             git push
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
 
       - name: Node
         uses: actions/setup-node@v4.0.2
@@ -31,6 +21,25 @@ jobs:
 
       - name: Install
         run: npm i
+
+      - name: Update patch version
+        run: |
+             cd projects/tt-library-angular-porfolio
+             npm version patch
+
+      - name: Set global config
+        run: |
+             git config --global user.name 'thanhtung1010'
+             git config --global user.email 'trinhthanhtung1010@gmail.com'
+
+      - name: Add file to staged changes
+        run: git add .
+
+      - name: Write commit
+        run: git commit -m "[auto] update lib version"
+
+      - name: Push new version
+        run: git push
 
       - name: Build
         run: npm run build
