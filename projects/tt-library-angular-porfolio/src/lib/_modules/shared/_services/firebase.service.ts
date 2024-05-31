@@ -5,7 +5,7 @@ import { Observable, Subscriber } from "rxjs";
 import { IAppConfig, IFirebaseConfig } from "../../../_interfaces";
 import { AppConfigService } from ".";
 import { APP_CONFIG_TOKEN } from "../../../_enums";
-import { getAuth, Auth } from "firebase/auth";
+import { getAuth, Auth, initializeAuth, browserLocalPersistence, browserPopupRedirectResolver } from "firebase/auth";
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +36,14 @@ export class FirebaseService {
       if (!this.firebaseApp) {
         throw new Error('firebase app is invalid');
       }
-      this.auth = getAuth(this.firebaseApp);
+      if (document !== undefined) {
+        this.auth = initializeAuth(this.firebaseApp, {
+          persistence: browserLocalPersistence,
+          popupRedirectResolver: browserPopupRedirectResolver
+        });
+      } else {
+        this.auth = getAuth(this.firebaseApp);
+      }
     } catch (error) {
       throw new Error(JSON.stringify(error));
     }
