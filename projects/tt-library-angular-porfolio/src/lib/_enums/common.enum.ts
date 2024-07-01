@@ -29,6 +29,12 @@ export const MENU: Array<IMenuItem> = [
     active: false,
   },
   // {
+  //   label: "MENU.ANIMATION",
+  //   show: true,
+  //   href: ROUTE.ANIMATION_PORTFOLIO,
+  //   active: false,
+  // },
+  // {
   //   label: "MENU.WORK_EXP",
   //   queryParams: QUERYPARAMS_NAV.WORK_EXP,
   //   show: true,
