@@ -28,12 +28,12 @@ export const MENU: Array<IMenuItem> = [
     href: ROUTE.PORTFOLIO + '/' + ROUTE.PORTFOLIO_ABOUT_ME,
     active: false,
   },
-  // {
-  //   label: "MENU.ANIMATION",
-  //   show: true,
-  //   href: ROUTE.ANIMATION_PORTFOLIO,
-  //   active: false,
-  // },
+  {
+    label: "MENU.ANIMATION",
+    show: false,
+    href: ROUTE.ANIMATION_PORTFOLIO,
+    active: false,
+  },
   // {
   //   label: "MENU.WORK_EXP",
   //   queryParams: QUERYPARAMS_NAV.WORK_EXP,

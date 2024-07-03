@@ -1,0 +1,12 @@
+<header #header tt-hidden-on-scroll [classNameWhenHidden]="hiddenCls" class="tt-header" (shownElement)="handleShowHeaderScrollUp($event)"
+  (initPosition)="handleHeaderInit($event)">
+  <tt-link-button-layout [href]="route.PORTFOLIO + '/' + route.PORTFOLIO_HOME" [target]="'_self'">
+    <ng-container hrefContent>
+      <tt-logo [customImgCls]="'pen-w-70'"></tt-logo>
+    </ng-container>
+  </tt-link-button-layout>
+
+  <div class="tt-menu-icon" (click)="openMenu()">
+    <img [src]="'menu' | TTAssetsLink:'svg'" alt="logo.svg">
+  </div>
+</header>

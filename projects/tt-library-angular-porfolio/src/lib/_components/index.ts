@@ -3,3 +3,7 @@ export * from './empty/empty.component';
 export * from './logo/logo.component';
 export * from './not-found/not-found.component';
 export * from './link-button-layout/link-button-layout.component';
+export * from './page-layout/page-layout.component';
+export * from './header/header.component';
+export * from './footer/footer.component';
+export * from './version/version.component';

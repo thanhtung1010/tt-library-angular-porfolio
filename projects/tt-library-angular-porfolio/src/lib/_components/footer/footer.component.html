@@ -1,0 +1,54 @@
+<footer class="tt-footer">
+  <section class="tt-footer-content">
+    <section class="tt-footer-contact_wrap">
+      <section class="tt-footer-contact">
+        <p>{{'COMMON.INTERESTED_WORKING_TOGETHER' | translate}}</p>
+        <tt-link-button-layout [target]="'_self'" [href]="'mailto:' + (env.email) + '?Subject=New%20Friend&body=Hi!%20I%20saw%20you%20on%20your%20portfolio.'">
+          <ng-container hrefContent>
+            <button class="tt-mailto">
+              <img loading="lazy" [src]="'chat' | TTAssetsLink:'svg'" alt="chat.svg">
+              <p>{{'BUTTON.SAY_HI' | translate}}</p>
+            </button>
+          </ng-container>
+        </tt-link-button-layout>
+      </section>
+    </section>
+
+    <section class="tt-footer-info">
+      <section class="tt-footer-info-content _logo">
+        <tt-logo [customCls]="'tt-logo-footer'"></tt-logo>
+      </section>
+
+      <section class="tt-footer-info-content _contact">
+        <h3>{{'COMMON.CONTACT' | translate}}</h3>
+        <p>{{'COMMON.ADDRESS' | translate}}</p>
+        <p>{{env.email}}</p>
+        <p>{{env.phoneNumber}}</p>
+      </section>
+
+      <section class="tt-footer-info-content _social_media">
+        <h3>{{'COMMON.LET_BE_INTERNET_FRIEND' | translate}}</h3>
+        <figure class="tt-footer-info-social_network">
+          <ng-container *ngFor="let item of socialNetworks">
+            <ng-container *ngIf="item.action === 'url'">
+              <tt-link-button-layout [href]="item.href || ''" [target]="item.target || '_blank'">
+                <ng-container hrefContent>
+                  <img loading="lazy" [src]="item.name| TTAssetsLink:item.type" [alt]="item.name + '.' + item.type">
+                </ng-container>
+              </tt-link-button-layout>
+            </ng-container>
+
+            <ng-container *ngIf="item.action === 'copy'">
+              <a (click)="copyContent(item.content)">
+                <img loading="lazy" [src]="item.name| TTAssetsLink:item.type" [alt]="item.name + '.' + item.type">
+              </a>
+            </ng-container>
+          </ng-container>
+        </figure>
+      </section>
+    </section>
+
+    <div class="tt-footer-line"></div>
+    <tt-version></tt-version>
+  </section>
+</footer>

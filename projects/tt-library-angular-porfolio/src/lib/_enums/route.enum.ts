@@ -2,7 +2,7 @@ export const ROUTE = {
   MANAGEMENT: 'management',
   NOT_FOUND: 'not-found',
   PORTFOLIO: 'my-porfolio',
-  ANIMATION_PORTFOLIO: '3d-porfolio',
+  ANIMATION_PORTFOLIO: 'animation-portfolio',
 
   PORTFOLIO_HOME: 'home',
   PORTFOLIO_ABOUT_ME: 'about-me',
