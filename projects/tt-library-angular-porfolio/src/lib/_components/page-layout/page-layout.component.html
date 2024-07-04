@@ -1,0 +1,17 @@
+<ng-container *ngIf="showHeader">
+  <tt-header></tt-header>
+</ng-container>
+
+<main #main class="tt-main">
+  <ng-content select="[main]"></ng-content>
+
+  <ng-container *ngIf="haveNoMainContent">
+    <tt-empty [customCls]="customClsEmptyMain" [nzNotFoundContent]="emptyMainMsg | translate" [nzNotFoundImage]="emptyMainImg | TTAssetsLink:'svg'"></tt-empty>
+  </ng-container>
+</main>
+
+<ng-container *ngIf="showFooter">
+  <tt-footer></tt-footer>
+</ng-container>
+
+<ng-content select="[overlay-container]"></ng-content>

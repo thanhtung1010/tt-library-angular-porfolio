@@ -8,5 +8,6 @@ export * from './lib/_enums';
 export * from './lib/_interfaces';
 export * from './lib/_components';
 export * from './lib/_pipes';
+export * from './lib/directives';
 
 export * from './lib/_modules/public-api';
