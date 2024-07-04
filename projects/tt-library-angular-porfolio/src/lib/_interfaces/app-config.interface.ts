@@ -46,5 +46,7 @@ export interface IGoogleConfig {
 export interface IRemoteModuleUrl {
   reactManagement: string;
   angularPortfolio: string;
+  angularAuth: string;
+  vueAnimation: string;
   [key: string]: any;
 }
