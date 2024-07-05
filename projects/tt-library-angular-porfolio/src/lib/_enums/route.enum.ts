@@ -1,5 +1,6 @@
 export const ROUTE = {
-  MANAGEMENT: 'management',
+  CMS: 'cms',
+  AUTH: 'auth',
   NOT_FOUND: 'not-found',
   PORTFOLIO: 'my-porfolio',
   ANIMATION_PORTFOLIO: 'animation-portfolio',
@@ -7,11 +8,10 @@ export const ROUTE = {
   PORTFOLIO_HOME: 'home',
   PORTFOLIO_ABOUT_ME: 'about-me',
 
-  OUTSIDE_MANAGEMENT: 'auth',
-  OUTSIDE_MANAGEMENT_LOGIN: '',
-  OUTSIDE_MANAGEMENT_LOGOUT: 'log-out',
+  AUTH_LOGIN: '',
+  AUTH_LOGOUT: 'log-out',
 
-  INSIDE_MANAGEMENT: 'home',
-  INSIDE_HOME_MANAGEMENT: 'manager-home-page',
-  INSIDE_ABOUT_ME_MANAGEMENT: 'manager-about-me-page',
+  CMS_MAIN: 'main',
+  CMS_MANAGEMENT_HOME_PAGE: 'manager-home-page',
+  CMS_MANAGEMENT_ABOUT_ME_PAGE: 'manager-about-me-page',
 };
