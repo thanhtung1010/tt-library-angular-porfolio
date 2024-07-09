@@ -1,11 +1,11 @@
 import { Inject, Injectable } from "@angular/core";
 import { FirebaseApp, initializeApp } from "firebase/app";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { Auth, browserLocalPersistence, browserPopupRedirectResolver, getAuth, initializeAuth, onAuthStateChanged } from "firebase/auth";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { Observable, Subscriber } from "rxjs";
-import { IAppConfig, IFirebaseConfig } from "../../../_interfaces";
-import { AppConfigService } from ".";
+import { UserService } from ".";
 import { APP_CONFIG_TOKEN } from "../../../_enums";
-import { getAuth, Auth, initializeAuth, browserLocalPersistence, browserPopupRedirectResolver } from "firebase/auth";
+import { IAppConfig } from "../../../_interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,7 @@ export class FirebaseService {
 
   constructor(
     @Inject(APP_CONFIG_TOKEN) private appConfig: IAppConfig,
+    private userService: UserService
   ) {
   }
 

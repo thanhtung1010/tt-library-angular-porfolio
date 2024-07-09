@@ -1,18 +1,20 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { MENU } from "../../../_enums";
-import { IMenuItem } from "../../../_interfaces";
+import { MANAGER_MENU, MENU } from "../../../_enums";
+import { IManagerMenuItem, IMenuItem } from "../../../_interfaces";
 
 @Injectable({
   providedIn: "root"
 })
 
 export class MenuService {
-
-  menu$: BehaviorSubject<Array<IMenuItem>> = new BehaviorSubject([] as Array<IMenuItem>);
+  //#region variable
+  private managerMenu$: BehaviorSubject<Array<IManagerMenuItem>> = new BehaviorSubject([] as Array<IManagerMenuItem>);
+  private menu$: BehaviorSubject<Array<IMenuItem>> = new BehaviorSubject([] as Array<IMenuItem>);
   toggleVisibleMenu$: BehaviorSubject<boolean> = new BehaviorSubject(false)
 
   hiddenScrollCls: string = 'tt-hidden_scroll';
+  //#endregion
 
   constructor() {}
 
@@ -26,8 +28,22 @@ export class MenuService {
     this.menu$.next(_menu);
   }
 
+  initManagerMenu() {
+    const _menu = MANAGER_MENU.filter(menuItem => menuItem.showMenu).map(menu => {
+      return {
+        ...menu,
+        active: location.pathname === menu.path,
+      }
+    });
+    this.managerMenu$.next(_menu);
+  }
+
   get getMenu(): IMenuItem[] {
     return this.menu$.value;
+  }
+
+  get getManagerMenu(): IManagerMenuItem[] {
+    return this.managerMenu$.value;
   }
 
   activeRouter(activeIndex: number) {

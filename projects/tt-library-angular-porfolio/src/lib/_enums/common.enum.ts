@@ -1,6 +1,5 @@
 import { InjectionToken } from "@angular/core";
-import { IAppConfig, ILang, IMenuItem } from "../_interfaces";
-import { ROUTE } from "./route.enum";
+import { IAppConfig, ILang } from "../_interfaces";
 
 
 export const DEFAULT_LANG: LANG_TYPE = 'vi';
@@ -15,46 +14,24 @@ export const LANG_LIST: Array<ILang> = [
   }
 ];
 
-export const MENU: Array<IMenuItem> = [
+export const ZoomList = [
   {
-    label: "MENU.HOME",
-    show: true,
-    href: ROUTE.PORTFOLIO + '/' + ROUTE.PORTFOLIO_HOME,
-    active: true,
+    value: 0,
+    text: 'HEAD.ZOOM_NORMAL'
   },
   {
-    label: "MENU.ABOUT_ME",
-    show: true,
-    href: ROUTE.PORTFOLIO + '/' + ROUTE.PORTFOLIO_ABOUT_ME,
-    active: false,
+    value: 1,
+    text: 'HEAD.ZOOM_1X'
   },
   {
-    label: "MENU.ANIMATION",
-    show: false,
-    href: ROUTE.ANIMATION_PORTFOLIO,
-    active: false,
+    value: 2,
+    text: 'HEAD.ZOOM_2X'
   },
-  // {
-  //   label: "MENU.WORK_EXP",
-  //   queryParams: QUERYPARAMS_NAV.WORK_EXP,
-  //   show: true,
-  // },
-  // {
-  //   label: "MENU.SKILL",
-  //   queryParams: QUERYPARAMS_NAV.SKILL,
-  //   show: true,
-  // },
-  // {
-  //   label: "MENU.PERSONAL_PROJECT",
-  //   queryParams: QUERYPARAMS_NAV.PERSONAL_PROJECT,
-  //   show: true,
-  // },
-  // {
-  //   label: "MENU.CONTACT_INFOR",
-  //   queryParams: QUERYPARAMS_NAV.CONTACT_INFOR,
-  //   show: true,
-  // },
-];
+  {
+    value: 3,
+    text: 'HEAD.ZOOM_3X'
+  }
+]
 
 export type htmlATagTarget = '_blank' |  '_parent' | '_self' | '_top';
 

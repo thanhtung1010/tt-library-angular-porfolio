@@ -1,7 +1,7 @@
-<div class="pen-table" [ngClass]="{'pen-table-loading': loading}">
-  <div class="pen-table-filter pen-mb-10" [ngClass]="{'show-on-mb': showFilterMb, 'loading': loadingTable}">
+<div class="tt-table" [ngClass]="{'tt-table-loading': loading}">
+  <div class="tt-table-filter tt-mb-10" [ngClass]="{'show-on-mb': showFilterMb, 'loading': loadingTable}">
     <div class="rows" nz-row>
-      <div class="row-main" [ngClass]="{'pen-table-loading': !allowFilter}" nz-col [nzXs]="{span: 24}"
+      <div class="row-main" [ngClass]="{'tt-table-loading': !allowFilter}" nz-col [nzXs]="{span: 24}"
         [nzXXl]="{span: column.left}" [nzXl]="{span: column.left}" [nzLg]="{span: column.left}"
         [nzMd]="{span: column.left}" [nzSm]="{span: expandFilter ? 24 : 12}">
         <div class="wrapper" nz-row>
@@ -12,7 +12,7 @@
         [nzXl]="{span: expandFilter ? 24 : column.right}" [nzLg]="{span: expandFilter ? 24 : column.right}"
         [nzSm]="{span: expandFilter ? 24 : 12}" [nzMd]="{span: expandFilter ? 24 : column.right}">
         <div class="wrapper" nz-row nz-col>
-          <div class="filters-expand" [ngClass]="{'pen-table-loading': !allowFilter}" nz-col
+          <div class="filters-expand" [ngClass]="{'tt-table-loading': !allowFilter}" nz-col
             [nzXXl]="{span: expandFilter ? column.left : 0}" [nzXl]="{span: expandFilter ? column.left : 0}"
             [nzLg]="{span: expandFilter ? column.left : 0}" [nzSm]="{span:24}" [nzXs]="{span:24}"
             [nzMd]="{span: expandFilter ? column.left : 0}">
@@ -24,14 +24,14 @@
               </nz-collapse-panel>
             </nz-collapse>
           </div>
-          <div class="buttons pen-align-right" nz-col [nzXXl]="{span: !expandFilter ? 24 : column.right}"
+          <div class="buttons tt-align-right" nz-col [nzXXl]="{span: !expandFilter ? 24 : column.right}"
             [nzXl]="{span: !expandFilter ? 24 : column.right}" [nzLg]="{span: !expandFilter ? 24 : column.right}"
             [nzMd]="{span: !expandFilter ? 24 : column.right}" [nzSm]="{span:24}">
             <div class="button-input">
               <ng-content select="[filter-button]"></ng-content>
             </div>
-            <div class="pen-ml-10 button-default pen-align-right">
-              <button *ngIf="stateProps.showExpand" class="btn pen-mw-40 pen-align-center"
+            <div class="tt-ml-10 button-default tt-align-right">
+              <button *ngIf="stateProps.showExpand" class="btn tt-mw-40 tt-align-center"
                 [ngClass]="{'active': expandFilter}" nzType="primary" nzShape="round" nz-button
                 [nzTooltipTitle]="'COMMON.ADVANCED_SEARCH' | translate" nzTooltipPlacement="top" nz-tooltip
                 (click)="onToggleExpand()">
@@ -63,10 +63,10 @@
     </div>
   </div>
   <div [nzTooltipTitle]="'COMMON.ADVANCED_SEARCH' | translate" nzTooltipPlacement="top" nz-tooltip
-    class="pen-table-filter-toggle" [ngClass]="{'active': showFilterMb}" (click)="showFilterMb = !showFilterMb">
+    class="tt-table-filter-toggle" [ngClass]="{'active': showFilterMb}" (click)="showFilterMb = !showFilterMb">
     <svg [outerHTML]="'filter' | TTSvgIcon:{class:'icon'}"></svg>
   </div>
-  <div class="pen-table-summarize" *ngIf="stateProps.showSummarize">
+  <div class="tt-table-summarize" *ngIf="stateProps.showSummarize">
     <ng-content select="[summarize]"></ng-content>
   </div>
   <ng-container *ngIf="stateProps.showTable">
@@ -85,7 +85,7 @@
       <tbody *ngIf="stateProps.param && stateProps.param.totalPages" style="min-height: 320px;">
         <ng-content select="[body]"></ng-content>
       </tbody>
-      <div class="pen-mt-30 pen-mb-30" style="min-height: 320px;"
+      <div class="tt-mt-30 tt-mb-30" style="min-height: 320px;"
         *ngIf="stateProps.param && !stateProps.param.totalPages">
         <div style="position: absolute; top: 50%;left: 50%;transform: translate(-50%,-50%);">
           <ng-container [ngTemplateOutlet]="noData"></ng-container>
@@ -96,8 +96,8 @@
   <ng-content select="[custom-body]"></ng-content>
 
   <ng-container>
-    <div class="pen-flex pen-align-center pen-flex-jc-sb">
-      <nz-pagination class="pen-mt-10 pen-mb-10" *ngIf="currentParams.totalPages >= 1 && stateProps.showPagination"
+    <div class="tt-flex tt-align-center tt-flex-jc-sb">
+      <nz-pagination class="tt-mt-10 tt-mb-10" *ngIf="currentParams.totalPages >= 1 && stateProps.showPagination"
         [nzPageSize]="currentParams.pageSize || 10" [nzPageIndex]=" currentParams.pageNumber || 1 "
         [nzShowSizeChanger]="true" [nzTotal]="currentParams.totalPages * currentParams.pageSize || 0"
         (nzPageIndexChange)="onQueryParamsChange($event, 'page')"

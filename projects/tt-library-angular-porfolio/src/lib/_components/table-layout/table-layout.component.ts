@@ -12,7 +12,7 @@ import { EmptyComponent } from '../empty/empty.component';
 import { SvgIconPipe } from '../../_pipes/svg-icon.pipe';
 import { IApiBaseMeta, ITableLayoutProps } from '../../_interfaces';
 import { AppConfigService } from '../../_modules/shared/_services/app-config.service';
-import { SharedModule } from '../../_modules/public-api';
+import { SharedModule } from '../../_modules/shared/shared.module';
 
 @Component({
   selector: 'tt-table-layout',
