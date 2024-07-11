@@ -16,8 +16,16 @@ export class UserService {
     return this._user.value;
   }
 
+  get _uuid(): string {
+    return this._user.value._uuid;
+  }
+
   set user(info: UserCredential) {
     this._user.next(new AppUserModel(info.user));
+  }
+
+  set _uuid(uuid: string) {
+    this._user.value._uuid = uuid;
   }
 
   logout() {}

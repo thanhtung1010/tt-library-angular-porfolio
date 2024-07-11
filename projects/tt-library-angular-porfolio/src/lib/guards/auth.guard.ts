@@ -23,9 +23,9 @@ export const authActiveGuard: CanActivateFn = (
   const userService = inject(UserService);
   const router = inject(Router);
 
-  if (!firebaseService.auth) {
-    firebaseService.initAuth();
-  }
+  // if (!firebaseService.auth) {
+  //   firebaseService.initAuth();
+  // }
 
   return new Observable((subs: Subscriber<boolean>) => {
     if (!firebaseService.auth) {

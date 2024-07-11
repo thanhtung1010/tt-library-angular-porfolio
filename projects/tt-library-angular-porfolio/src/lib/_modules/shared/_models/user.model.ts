@@ -7,6 +7,7 @@ export class AppUserModel {
   isAnonymous: boolean = false;
   init: boolean = false;
 
+  private uuid: string = '';
   displayName: string = '';
   email: string = '';
   phoneNumber: string = '';
@@ -34,8 +35,16 @@ export class AppUserModel {
     this.init = !!this.stsTokenManager;
   }
 
+  get _uuid(): string {
+    return this.uuid;
+  }
+
   get refreshToken(): string {
     return this.stsTokenManager?.refreshToken || '';
+  }
+
+  set _uuid(uuid: string) {
+    this.uuid = uuid;
   }
 
   private checkForString(
