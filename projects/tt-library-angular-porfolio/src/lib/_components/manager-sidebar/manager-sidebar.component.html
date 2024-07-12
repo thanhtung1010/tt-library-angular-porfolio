@@ -19,47 +19,47 @@
 
 <ng-template #menuGroup let-list="list" let-showDivider="showDivider">
   <ng-container *ngFor="let item of list; let parentIndex = index" [ngTemplateOutlet]="menuItem"
-    [ngTemplateOutletContext]="{'item': item, 'showDivider': showDivider, class: 0, parentIndex: null, index: parentIndex}">
+    [ngTemplateOutletContext]="{'item': item, 'showDivider': showDivider, parentIndex: null, index: parentIndex}">
   </ng-container>
 </ng-template>
-<ng-template #menuItem let-item="item" let-class="class" let-parentIndex="parentIndex" let-index="index">
+
+<ng-template #menuItem let-item="item" let-parentIndex="parentIndex" let-index="index">
   <ng-container *ngIf="item.showMenu">
-    <li class="antd-menu-item item level-{{class}}" *ngIf="item && (!item.childList || (!item.childList.length))">
-      <!-- parent-index:{{parentIndex}} / item-index:{{index}} -->
+    <li class="antd-menu-item item" *ngIf="item && (!item.childList || (!item.childList.length))">
       <ng-container [ngTemplateOutlet]="menuItemLink"
         [ngTemplateOutletContext]="{'item': item, parentIndex: parentIndex, itemIndex: index }"></ng-container>
     </li>
-    <ng-container [ngTemplateOutlet]="menuItemHasChildLink" *ngIf="item && (item.childList && item.childList.length)"
-      [ngTemplateOutletContext]="{'item': item, 'class': class, parentIndex: parentIndex, itemIndex: index }">
+
+    <ng-container [ngTemplateOutlet]="menuItemHasChildLink" *ngIf="item && item.childList && item.childList.length"
+      [ngTemplateOutletContext]="{'item': item, parentIndex: parentIndex, itemIndex: index }">
     </ng-container>
   </ng-container>
 </ng-template>
 <ng-template #menuItemLink let-item="item" let-parentIndex="parentIndex" let-itemIndex="itemIndex">
   <a class="tt-link_btn wrap" [attr.title]="item.title | translate" [href]="item.path" [class]="item.active ? 'ant-menu-item-selected' : ''" target="_self">
-    <img class="tt-mr-10" loading="lazy" [src]="item.icon | TTAssetsLink:'svg'" [alt]="item.icon + '.svg'" style="height: 25px; width: 25px;">
+    <img class="tt-mr-10" loading="lazy" [src]="item.icon | TTAssetsLink:'svg'" [alt]="item.icon + '.svg'"
+      [style]="parentIndex ? 'height: 15px; width: 15px; margin-left: 5px;' : 'height: 20px; width: 20px;'">
     <span class="text">{{item.title | translate}}</span>
   </a>
 </ng-template>
 
-<ng-template #menuItemHasChildLink let-item="item" let-class="class" let-parentIndex="parentIndex"
+<ng-template #menuItemHasChildLink let-item="item" let-parentIndex="parentIndex"
   let-itemIndex="itemIndex">
-  <li class="antd-menu-item item-parent {{class}}">
-    <div class="vertical item level-{{class}}" (click)="onToggleMenuItem(parentIndex, itemIndex);">
+  <li class="antd-menu-item item-parent">
+    <div class="vertical item" (click)="onToggleMenuItem(parentIndex, itemIndex);">
       <span [attr.title]="item.title | translate" class="wrap title tt-cursor"
-        [ngClass]="{'active': item.isActive && (class > 0 ? !item.openChild : true)}" [attr.click-child]="true">
-        <ng-container [ngClass]="{'open': item.openChild && class > 0}">
-          <img class="tt-mr-10" loading="lazy" [src]="item.icon | TTAssetsLink:'svg'" [alt]="item.icon + '.svg'" style="height: 25px; width: 25px;">
-        </ng-container>
+        [ngClass]="{'active': item.isActive && !!item.openChild, 'open': !!item.openChild}" [attr.click-child]="true">
+        <img class="tt-mr-10" loading="lazy" [src]="item.icon | TTAssetsLink:'svg'" [alt]="item.icon + '.svg'"
+          [style]="parentIndex ? 'height: 15px; width: 15px;' : 'height: 20px; width: 20px;'">
         <span class="text">{{item.title | translate}}</span>
       </span>
     </div>
-    <div [attr.id]="item.tempId" class="wrap-children level-{{class}}" [ngClass]="{'open': item.openChild}"
-      [attr.data-height]="item.height" [style.height]="item.openChild ? item.height + 'px' : 0"
-      *ngIf="item && (item.childList && item.childList.length)">
-      <ul class="children level-{{class}}">
+    <div [attr.id]="item.tempId" class="wrap-children" [ngClass]="{'open': !!item.openChild}"
+      [attr.data-height]="item.height" *ngIf="item && (item.childList && item.childList.length)">
+      <ul class="children">
         <ng-container *ngFor="let childItem of item.childList; let childIndex = index;">
           <ng-container [ngTemplateOutlet]="menuItem"
-            [ngTemplateOutletContext]="{'item': childItem, 'showDivider': false, class: class + 1, parentIndex: itemIndex, index: childIndex}">
+            [ngTemplateOutletContext]="{'item': childItem, 'showDivider': false, parentIndex: itemIndex, index: childIndex}">
           </ng-container>
         </ng-container>
       </ul>

@@ -13,6 +13,7 @@ import { SvgIconPipe } from '../../_pipes/svg-icon.pipe';
 import { IApiBaseMeta, ITableLayoutProps } from '../../_interfaces';
 import { AppConfigService } from '../../_modules/shared/_services/app-config.service';
 import { SharedModule } from '../../_modules/shared/shared.module';
+import { AssetsLink } from '../../_pipes';
 
 @Component({
   selector: 'tt-table-layout',
@@ -30,6 +31,7 @@ import { SharedModule } from '../../_modules/shared/shared.module';
     NzPaginationModule,
     EmptyComponent,
     SharedModule,
+    AssetsLink,
   ],
 })
 export class TableLayoutComponent implements OnChanges {

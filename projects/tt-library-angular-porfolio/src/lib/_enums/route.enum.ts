@@ -17,11 +17,15 @@ export const ROUTE = {
   CMS_MAIN: 'main',
   CMS_MANAGEMENT_HOME_PAGE: 'manager-home-page',
   CMS_MANAGEMENT_ABOUT_ME_PAGE: 'manager-about-me-page',
+
+  CMS_ADMIN: 'admin',
+  CMS_ADMIN_USERS: 'users',
 };
 
 export const ROUTE_ICON = {
   MAIN: 'home',
   COMMON: 'admin-menu',
+  CHILD_MENU: 'direction-right',
 };
 
 export const MENU: Array<IMenuItem> = [
@@ -65,41 +69,54 @@ export const MENU: Array<IMenuItem> = [
   // },
 ];
 
+export const ADMIN_CHILD: Array<IManagerMenuItem> = [
+  {
+    path: `${ROUTE.CMS}/${ROUTE.CMS_ADMIN}/${ROUTE.CMS_ADMIN_USERS}`,
+    showMenu: true,
+    code: 'MENU.CMS_ADMIN.USERS',
+    title: 'MENU.CMS_ADMIN.USERS',
+    icon: ROUTE_ICON.CHILD_MENU,
+    modules: [MANAGER_PERMISSION_MODULE.ADMIN],
+    order: 1,
+  },
+];
+
 export const MANAGER_MENU: Array<IManagerMenuItem> = [
   {
     path: `${ROUTE.CMS}/${ROUTE.CMS_MAIN}`,
     showMenu: true,
     code: 'MENU.CMS_MAIN',
     title: 'MENU.CMS_MAIN',
-    showGroup: '1',
-    roles: undefined,
     icon: ROUTE_ICON.MAIN,
     modules: [MANAGER_PERMISSION_MODULE.MAIN],
     order: 0,
-    // childList: TOP_CHILD
+  },
+  {
+    path: `${ROUTE.CMS}/${ROUTE.CMS_ADMIN}`,
+    showMenu: true,
+    code: 'MENU.CMS_ADMIN.INDEX',
+    title: 'MENU.CMS_ADMIN.INDEX',
+    icon: ROUTE_ICON.COMMON,
+    modules: [MANAGER_PERMISSION_MODULE.ADMIN],
+    order: 0,
+    childList: ADMIN_CHILD,
   },
   {
     path: `${ROUTE.CMS}/${ROUTE.CMS_MANAGEMENT_HOME_PAGE}`,
     showMenu: true,
     code: 'MENU.CMS_MANAGEMENT_HOME_PAGE',
     title: 'MENU.CMS_MANAGEMENT_HOME_PAGE',
-    showGroup: '1',
-    roles: undefined,
     icon: ROUTE_ICON.COMMON,
     modules: [MANAGER_PERMISSION_MODULE.MANAGEMENT_HOME_PAGE],
     order: 1,
-    // childList: TOP_CHILD
   },
   {
     path: `${ROUTE.CMS}/${ROUTE.CMS_MANAGEMENT_ABOUT_ME_PAGE}`,
     showMenu: true,
     code: 'MENU.CMS_MANAGEMENT_ABOUT_ME_PAGE',
     title: 'MENU.CMS_MANAGEMENT_ABOUT_ME_PAGE',
-    showGroup: '1',
-    roles: undefined,
     icon: ROUTE_ICON.COMMON,
     modules: [MANAGER_PERMISSION_MODULE.MANAGEMENT_ABOUT_ME_PAGE],
     order: 2,
-    // childList: TOP_CHILD
   },
 ];

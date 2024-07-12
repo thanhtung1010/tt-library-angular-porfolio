@@ -10,3 +10,5 @@ export * from './version/version.component';
 export * from './manager-header/manager-header.component';
 export * from './manager-sidebar/manager-sidebar.component';
 export * from './manager-page-layout/manager-page-layout.component';
+export * from './search-input-layout/search-input-layout.component';
+export * from './select-list-layout/select-list-layout.component';

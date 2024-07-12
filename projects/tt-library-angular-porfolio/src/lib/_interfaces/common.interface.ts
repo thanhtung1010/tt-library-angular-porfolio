@@ -28,7 +28,6 @@ export interface IManagerMenuItem {
   isActive?: boolean;
 
   roles?: any[];
-  showGroup?: string;
   modules?: string[];
   parentList?: IManagerMenuItem[];
   parentTitle?: string;

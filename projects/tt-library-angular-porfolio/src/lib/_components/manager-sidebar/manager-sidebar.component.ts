@@ -35,7 +35,7 @@ export class ManagerSidebarComponent implements OnInit, OnDestroy, AfterViewInit
     private appConfig: AppConfigService,
     private menuService: MenuService,
     private router: Router,
-    private translate: TranslateService
+    // private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -52,10 +52,10 @@ export class ManagerSidebarComponent implements OnInit, OnDestroy, AfterViewInit
     });
     this.homePage = this.menu && this.menu.length > 0 ? this.menu[0].path : '';
 
-    this.setTranslatedTitle();
-    this.translate.onLangChange.subscribe(() => {
-      this.setTranslatedTitle();
-    })
+    // this.setTranslatedTitle();
+    // this.translate.onLangChange.subscribe(() => {
+    //   this.setTranslatedTitle();
+    // })
   }
   ngAfterViewInit() {
     setTimeout(() => {
@@ -183,19 +183,19 @@ export class ManagerSidebarComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
-  setTranslatedTitle() {
-    this.menu.forEach(item => {
-      // if (this.TRANSLATED_SORT_MENUS.includes(item.code)) {
-      if (item.childList) {
-        item.childList.forEach(child => {
-          child.translatedTitle = this.translate.instant(child.title);
-        });
-        const _sortByOrder = item.childList.some(child => child.order || child.order === 0);
-        if (!_sortByOrder) item.childList = [...item.childList].sort(elm => elm.order ?? 999);
-      }
-      // }
-    })
-  }
+  // setTranslatedTitle() {
+  //   this.menu.forEach(item => {
+  //     // if (this.TRANSLATED_SORT_MENUS.includes(item.code)) {
+  //     if (item.childList) {
+  //       item.childList.forEach(child => {
+  //         child.translatedTitle = this.translate.instant(child.title);
+  //       });
+  //       const _sortByOrder = item.childList.some(child => child.order || child.order === 0);
+  //       if (!_sortByOrder) item.childList = [...item.childList].sort(elm => elm.order ?? 999);
+  //     }
+  //     // }
+  //   })
+  // }
 
   ngOnDestroy() {
     if (this.subscribeActiveMenu)

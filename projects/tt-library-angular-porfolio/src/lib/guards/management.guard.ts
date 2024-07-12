@@ -52,7 +52,8 @@ export const managementActiveGuard: CanActivateFn = (
                       uuid: _uuid,
                       email: userService.user.email,
                       phone_number: userService.user.phoneNumber,
-                      permission: FIRESTORE_PERMISSIOON.USER
+                      permission: FIRESTORE_PERMISSIOON.USER,
+                      full_name: userService.user.displayName,
                     };
                     firebaseService.addNewDocument(FIRESTORE_COLLECTION.USERS, _user).subscribe(resp => {
                       if (resp) {

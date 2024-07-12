@@ -117,6 +117,41 @@ export class FirebaseService {
     });
   }
 
+  getCollection<T>(collectionName: string): Observable<Array<T>> {
+    return new Observable<Array<T>>((subs: Subscriber<Array<T>>) => {
+      try {
+        if (!this.store) {
+          this.initFireStore();
+        }
+
+        const _ref = collection(this.store as any, collectionName);
+        const _userSnap = from(getDocs(_ref));
+
+        _userSnap.subscribe({
+          next: resp => {
+            const _data: Array<T> = [];
+
+            if (!resp.empty) {
+              resp.forEach((doc) => {
+                _data.push(doc.data() as T);
+              });
+            }
+
+            subs.next(_data);
+            subs.complete();
+          },
+          error: error => {
+            subs.error(error);
+            subs.complete();
+          },
+        });
+      } catch (error) {
+        subs.error(error);
+        subs.complete();
+      }
+    });
+  }
+
   addNewDocument(collectionName: string, data: any): Observable<boolean> {
     return new Observable<boolean>((subs: Subscriber<boolean>) => {
       try {

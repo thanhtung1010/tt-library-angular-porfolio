@@ -3,4 +3,5 @@ export interface IFirestoreUser {
   email: string;
   phone_number: string;
   permission: string;
+  full_name: string;
 }

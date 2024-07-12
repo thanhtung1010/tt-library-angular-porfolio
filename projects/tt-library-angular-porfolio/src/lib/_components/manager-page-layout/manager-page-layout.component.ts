@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { AppConfigService, UserService } from '../../_modules/shared/_services';
 import { AssetsLink } from '../../_pipes';
@@ -18,7 +18,18 @@ import { ManagerHeaderComponent, ManagerSidebarComponent } from '..';
     ManagerSidebarComponent,
   ]
 })
-export class ManagerPageLayoutComponent implements OnInit, OnDestroy {
+export class ManagerPageLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('pageElement') pageElement: ElementRef | null = null;
+  @ViewChild('pageFooter') pageFooter: ElementRef | null = null;
+
+  @Input() fixedFooter: boolean = false;
+
+  @HostListener('window:resize')
+  onResize() {
+    this.resizePage(1);
+  }
+
+  pageFixCls = 'tt-page-fixed-footer';
   isLoadingInfo: boolean = false;
   isCollapsed: boolean = true;
 
@@ -28,9 +39,18 @@ export class ManagerPageLayoutComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.resizePage(0);
+  }
 
   ngOnDestroy(): void { }
+
+  ngAfterViewInit(): void {
+    const _timeout = setTimeout(() => {
+      this.resizePage(1);
+      clearTimeout(_timeout)
+    }, 0);
+  }
 
   /**
    * Start tracking change routes
@@ -75,6 +95,49 @@ export class ManagerPageLayoutComponent implements OnInit, OnDestroy {
     //     this._titleService.setTitle(environment.appTitle);
     //   }
     // })
+  }
+
+  resizePage(size: number = 0) {
+    if (this.pageFooter && this.fixedFooter) {
+      if (size) {
+        // this.setConfig();
+        this.setFooterClass('fixed', 'add');
+        this.pageFooter.nativeElement.style.width = navigator.userAgent.indexOf('WebKit') != -1
+          ? `-webkit-fill-available`
+          : `-moz-available`;
+      } else {
+        this.setFooterClass('fixed', 'remove');
+        this.pageFooter.nativeElement.style.width = ``;
+      }
+    }
+  }
+  setFooterClass(cls: string, type: 'add' | 'remove' = 'add') {
+    if (this.pageFooter) {
+      try {
+        if (type === 'add') {
+          this.pageFooter.nativeElement.classList.add(cls);
+        } else {
+          this.pageFooter.nativeElement.classList.remove(cls);
+        }
+      }
+      catch (e) {
+        console.log(e)
+      }
+    }
+  }
+  setPageClass(cls: string, type: 'add' | 'remove' = 'add') {
+    if (this.pageElement) {
+      try {
+        if (type === 'add') {
+          this.pageElement.nativeElement.classList.add(cls);
+        } else {
+          this.pageElement.nativeElement.classList.remove(cls);
+        }
+      }
+      catch (e) {
+        console.log(e)
+      }
+    }
   }
 
   /**
