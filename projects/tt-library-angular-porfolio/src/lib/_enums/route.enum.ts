@@ -20,6 +20,8 @@ export const ROUTE = {
 
   CMS_ADMIN: 'admin',
   CMS_ADMIN_USERS: 'users',
+
+  WINFIT_ONLINE: 'winfit-online',
 };
 
 export const ROUTE_ICON = {
