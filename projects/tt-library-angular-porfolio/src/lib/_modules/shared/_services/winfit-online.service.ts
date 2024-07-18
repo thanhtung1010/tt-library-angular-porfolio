@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { BaseIndexWinfitModel } from "../_models";
+import { AppUserModel, BaseIndexWinfitModel } from "../_models";
 import { BehaviorSubject, Observable, of, Subscriber } from "rxjs";
-import { IBaseBMR, IBaseInfor, IFirestoreCustomerWinfitOnline, IFirestoreWinfitOnline } from "../../../_interfaces";
+import { IBaseBMR, IBaseInfor, IFirestoreCustomerWinfitOnline, IFirestoreUser, IFirestoreWinfitOnline } from "../../../_interfaces";
 import { FirebaseService } from ".";
 import { FIRESTORE_COLLECTION } from "../../../_enums";
 
@@ -48,6 +48,13 @@ export class WinfitOnlineService {
     this.callApply();
   }
 
+  set setUserInfo(user: AppUserModel) {
+    this._baseIndexWinfit.email = user.email;
+    this._baseIndexWinfit.fullName = user.displayName;
+    this._baseIndexWinfit.phoneNumber = user.phoneNumber;
+    this.callApply();
+  }
+
   callApply() {
     this._baseIndexWinfit = new BaseIndexWinfitModel(this._baseIndexWinfit);
     this.baseIndexWinfit$.next(this._baseIndexWinfit);
@@ -83,7 +90,7 @@ export class WinfitOnlineService {
   }
 
   calcWaterNeeded(baseInfor: IBaseInfor) {
-    const waterNeeded: number = baseInfor.weightIndex * 0.03;
+    const waterNeeded: number = (baseInfor.weightIndex * 0.03) + 0.5;
     this.setWaterNeeded = +waterNeeded.toFixed(2);
   }
 

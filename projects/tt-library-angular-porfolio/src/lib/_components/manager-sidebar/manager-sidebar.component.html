@@ -24,16 +24,16 @@
 </ng-template>
 
 <ng-template #menuItem let-item="item" let-parentIndex="parentIndex" let-index="index">
-  <ng-container *ngIf="item.showMenu">
-    <li class="antd-menu-item item" *ngIf="item && (!item.childList || (!item.childList.length))">
-      <ng-container [ngTemplateOutlet]="menuItemLink"
-        [ngTemplateOutletContext]="{'item': item, parentIndex: parentIndex, itemIndex: index }"></ng-container>
-    </li>
+  <!-- <ng-container *ngIf="item.showMenu"> -->
+  <li class="antd-menu-item item" *ngIf="item && (!item.childList || (!item.childList.length))">
+    <ng-container [ngTemplateOutlet]="menuItemLink"
+      [ngTemplateOutletContext]="{'item': item, parentIndex: parentIndex, itemIndex: index }"></ng-container>
+  </li>
 
-    <ng-container [ngTemplateOutlet]="menuItemHasChildLink" *ngIf="item && item.childList && item.childList.length"
-      [ngTemplateOutletContext]="{'item': item, parentIndex: parentIndex, itemIndex: index }">
-    </ng-container>
+  <ng-container [ngTemplateOutlet]="menuItemHasChildLink" *ngIf="item && item.childList && item.childList.length"
+    [ngTemplateOutletContext]="{'item': item, parentIndex: parentIndex, itemIndex: index }">
   </ng-container>
+  <!-- </ng-container> -->
 </ng-template>
 <ng-template #menuItemLink let-item="item" let-parentIndex="parentIndex" let-itemIndex="itemIndex">
   <a class="tt-link_btn wrap" [attr.title]="item.title | translate" [href]="item.path" [class]="item.active ? 'ant-menu-item-selected' : ''" target="_self">

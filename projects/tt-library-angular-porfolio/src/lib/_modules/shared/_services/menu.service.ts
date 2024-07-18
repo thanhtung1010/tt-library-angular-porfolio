@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { MANAGER_MENU, MENU } from "../../../_enums";
 import { IManagerMenuItem, IMenuItem } from "../../../_interfaces";
+import { AppConfigService } from "./app-config.service";
 
 @Injectable({
   providedIn: "root"
@@ -16,10 +17,13 @@ export class MenuService {
   hiddenScrollCls: string = 'tt-hidden_scroll';
   //#endregion
 
-  constructor() {}
+  constructor(
+    private appConfigSerice: AppConfigService,
+  ) {}
 
   init() {
-    const _menu = MENU.filter(menuItem => menuItem.show).map(menu => {
+    const isProdEnv = this.appConfigSerice.appConfig.production;
+    const _menu = MENU.filter(menuItem => isProdEnv ? menuItem.show : true).map(menu => {
       return {
         ...menu,
         active: location.pathname === menu.href,
@@ -29,7 +33,8 @@ export class MenuService {
   }
 
   initManagerMenu() {
-    const _menu = MANAGER_MENU.filter(menuItem => menuItem.showMenu).map(menu => {
+    const isProdEnv = this.appConfigSerice.appConfig.production;
+    const _menu = MANAGER_MENU.filter(menuItem => isProdEnv ? menuItem.showMenu : true).map(menu => {
       return {
         ...menu,
         active: location.pathname === menu.path,

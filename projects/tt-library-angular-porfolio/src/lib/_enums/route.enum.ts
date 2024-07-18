@@ -17,6 +17,7 @@ export const ROUTE = {
   CMS_MAIN: 'main',
   CMS_MANAGEMENT_HOME_PAGE: 'manager-home-page',
   CMS_MANAGEMENT_ABOUT_ME_PAGE: 'manager-about-me-page',
+  CMS_WINFIT_ONLINE: 'winfit-online',
 
   CMS_ADMIN: 'admin',
   CMS_ADMIN_USERS: 'users',
@@ -86,7 +87,7 @@ export const ADMIN_CHILD: Array<IManagerMenuItem> = [
 export const MANAGER_MENU: Array<IManagerMenuItem> = [
   {
     path: `${ROUTE.CMS}/${ROUTE.CMS_MAIN}`,
-    showMenu: true,
+    showMenu: false,
     code: 'MENU.CMS_MAIN',
     title: 'MENU.CMS_MAIN',
     icon: ROUTE_ICON.MAIN,
@@ -95,7 +96,7 @@ export const MANAGER_MENU: Array<IManagerMenuItem> = [
   },
   {
     path: `${ROUTE.CMS}/${ROUTE.CMS_ADMIN}`,
-    showMenu: true,
+    showMenu: false,
     code: 'MENU.CMS_ADMIN.INDEX',
     title: 'MENU.CMS_ADMIN.INDEX',
     icon: ROUTE_ICON.COMMON,
@@ -104,8 +105,17 @@ export const MANAGER_MENU: Array<IManagerMenuItem> = [
     childList: ADMIN_CHILD,
   },
   {
-    path: `${ROUTE.CMS}/${ROUTE.CMS_MANAGEMENT_HOME_PAGE}`,
+    path: `${ROUTE.CMS}/${ROUTE.CMS_WINFIT_ONLINE}`,
     showMenu: true,
+    code: 'MENU.CMS_WINFIT_ONLINE',
+    title: 'MENU.CMS_WINFIT_ONLINE',
+    icon: ROUTE_ICON.COMMON,
+    modules: [MANAGER_PERMISSION_MODULE.WINFIT_ONLINE],
+    order: 1,
+  },
+  {
+    path: `${ROUTE.CMS}/${ROUTE.CMS_MANAGEMENT_HOME_PAGE}`,
+    showMenu: false,
     code: 'MENU.CMS_MANAGEMENT_HOME_PAGE',
     title: 'MENU.CMS_MANAGEMENT_HOME_PAGE',
     icon: ROUTE_ICON.COMMON,
@@ -114,7 +124,7 @@ export const MANAGER_MENU: Array<IManagerMenuItem> = [
   },
   {
     path: `${ROUTE.CMS}/${ROUTE.CMS_MANAGEMENT_ABOUT_ME_PAGE}`,
-    showMenu: true,
+    showMenu: false,
     code: 'MENU.CMS_MANAGEMENT_ABOUT_ME_PAGE',
     title: 'MENU.CMS_MANAGEMENT_ABOUT_ME_PAGE',
     icon: ROUTE_ICON.COMMON,
