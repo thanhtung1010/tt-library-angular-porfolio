@@ -4,6 +4,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { IApiObject } from "../../../_interfaces";
 import { URLHelper } from "../../../_helpers/url.helper";
+import { Helpers } from "../../../_helpers";
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +20,21 @@ export class CommonService {
     private message: NzMessageService,
   ) {}
 
-  gotoURL(url: string, queryParams?: any) {
+  gotoURL(url: string, queryParams?: any, reload?: boolean) {
     if (queryParams) {
-      this._router.navigate([url], {queryParams: queryParams});
+      if (reload) {
+        const _url = `${location.origin}/${url}?${Helpers.convertObjectToParams(queryParams)}`
+        location.href = _url;
+      } else {
+        this._router.navigate([url], {queryParams: queryParams});
+      }
     } else {
-      this._router.navigate([url]);
+      if (reload) {
+        const _url = `${location.origin}/${url}`
+        location.href = _url;
+      } else {
+        this._router.navigate([url]);
+      }
     }
   }
 

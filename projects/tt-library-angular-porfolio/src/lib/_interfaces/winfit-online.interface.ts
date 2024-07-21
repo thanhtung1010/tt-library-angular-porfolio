@@ -6,7 +6,7 @@ export interface IBaseInfor {
   lbm?: number;
 }
 
-export interface ICalcIndexWinfit {
+export interface ICalcIndexWinfit extends IBaseCustomerInfo {
   age: number;
   gender: boolean;
   heightIndex: number;
@@ -17,6 +17,12 @@ export interface ICalcIndexWinfit {
   fullName?: string;
   email?: string;
   phoneNumber?: string;
+}
+
+export interface IBaseCustomerInfo {
+  customerName?: string;
+  customerEmail?: string;
+  customerPhoneNumber?: string;
 }
 
 export interface IBaseBMR {
@@ -64,4 +70,12 @@ export interface IBaseMBRData {
   bmr: number;
   manBMR: number;
   womanBMR: number;
+}
+
+export interface IBaseWinfitOnlineData {
+  baseMBRData: IBaseMBRData[]
+  baseMBIData: IBaseMBIData[]
+  baseBodyFatData: IBaseBodyFatData[]
+  baseVisceralFatData: IBaseVisceralFatData[]
+  baseSkeletalMusclesData: IBaseSkeletalMusclesData[]
 }

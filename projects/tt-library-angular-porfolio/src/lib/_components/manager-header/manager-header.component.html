@@ -1,6 +1,6 @@
 <div class="tt-manager-header-wrapper" [ngClass]="{'open': menuMb.rightMenu}">
-  <div class="left">
-    <!-- <ul class="links">
+  <!-- <div class="left">
+    <ul class="links">
       <li class="item" *ngIf="emails && emails['customerService'] && emails.customerService.address">
         <a [attr.href]="'mailto:' + emails.customerService.address + '?subject=' + emails.customerService.title"
           nz-tooltip [nzTooltipTitle]="cusServiceTemplate" nzTooltipPlacement="bottomLeft">
@@ -22,9 +22,9 @@
           <span class="text" [innerHTML]="'HEAD.LINK_IT_SERV' | translate"></span>
         </ng-template>
       </li>
-    </ul> -->
-  </div>
-  <div class="center"></div>
+    </ul>
+  </div> -->
+  <!-- <div class="center"></div> -->
   <div class="right">
     <ul class="menu" *ngIf="!loading.profile">
       <li class="item">
@@ -44,7 +44,7 @@
         <span class="text">
           <nz-select (ngModelChange)="onChangeLanguage($event)" nzSuffixIcon="caret-down" [(ngModel)]="currentLang"
             class="select-lang" style="width: 100px;">
-            <nz-option [nzHide]="item.lang === currentLang" *ngFor="let item of languages" [nzValue]="item.lang"
+            <nz-option [nzDisabled]="true" [nzHide]="item.lang === currentLang" *ngFor="let item of languages" [nzValue]="item.lang"
               [nzLabel]="item.label | translate">
             </nz-option>
           </nz-select>
@@ -65,7 +65,7 @@
 </div>
 <div class="tt-manager-header-wrapper-toggle" (click)="menuMb.rightMenu = !menuMb.rightMenu">
   <span class="toggle-button" [style.transform]="menuMb.rightMenu ? 'rotate(-180deg) translate(0px, 5px)' : ''">
-    <img loading="lazy" [src]="'menu-right-toggle' | TTAssetsLink:'svg'" [alt]="'menu-right-toggle.svg'" style="height: 30px; width: 30px;">
+    <img loading="lazy" [src]="'burger-menu-right' | TTAssetsLink:'svg'" [alt]="'burger-menu-right.svg'" style="height: 30px; width: 30px;">
   </span>
 </div>
 

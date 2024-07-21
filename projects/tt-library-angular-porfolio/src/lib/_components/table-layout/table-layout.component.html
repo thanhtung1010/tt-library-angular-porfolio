@@ -1,14 +1,14 @@
 <div class="tt-table" [ngClass]="{'tt-table-loading': loading}">
   <div class="tt-table-filter tt-mb-10" [ngClass]="{'show-on-mb': showFilterMb, 'loading': loadingTable}">
     <div class="rows" nz-row>
-      <div class="row-main" [ngClass]="{'tt-table-loading': !allowFilter}" nz-col [nzXs]="{span: 24}"
+      <div class="row-main tt-mb-10" [ngClass]="{'tt-table-loading': !allowFilter}" nz-col [nzXs]="{span: 24}"
         [nzXXl]="{span: column.left}" [nzXl]="{span: column.left}" [nzLg]="{span: column.left}"
         [nzMd]="{span: column.left}" [nzSm]="{span: expandFilter ? 24 : 12}">
         <div class="wrapper" nz-row>
           <ng-content select="[filter-main]"></ng-content>
         </div>
       </div>
-      <div class="filters" nz-col [nzXs]="{span: 24}" [nzXXl]="{span: expandFilter ? 24 : column.right}"
+      <div class="filters tt-mb-10" nz-col [nzXs]="{span: 24}" [nzXXl]="{span: expandFilter ? 24 : column.right}"
         [nzXl]="{span: expandFilter ? 24 : column.right}" [nzLg]="{span: expandFilter ? 24 : column.right}"
         [nzSm]="{span: expandFilter ? 24 : 12}" [nzMd]="{span: expandFilter ? 24 : column.right}">
         <div class="wrapper" nz-row nz-col>
@@ -33,27 +33,31 @@
             <div class="tt-ml-10 button-default tt-align-right">
               <button *ngIf="stateProps.showExpand" class="btn tt-mw-40 tt-align-center"
                 [ngClass]="{'active': expandFilter}" nzType="primary" nzShape="round" nz-button
-                [nzTooltipTitle]="'COMMON.ADVANCED_SEARCH' | translate" nzTooltipPlacement="top" nz-tooltip
+                [nzTooltipTitle]="'BUTTON.ADVANCED_SEARCH' | translate" nzTooltipPlacement="top" nz-tooltip
                 (click)="onToggleExpand()">
                 <img class="icon white" loading="lazy" [src]="'fold-down' | TTAssetsLink:'svg'" [alt]="'fold-down.svg'" style="height: 25px; width: 25px;">
               </button>
               <ng-container *ngIf="stateProps.showDefaultButtons">
                 <span class="vertical"></span>
-                <a *ngIf="!stateProps.alertReset" [nzTooltipTitle]="'BTN_RESET' | translate" nzTooltipPlacement="top"
-                  nz-tooltip (click)="onReload()" class="btn" nz-button nzType="text" area-name="reload">
-                  <img class="icon" loading="lazy" [src]="'reload' | TTAssetsLink:'svg'" [alt]="'reload.svg'" style="height: 25px; width: 25px;">
-                </a>
-                <a *ngIf="stateProps.alertReset" [nzTooltipTitle]="'BTN_RESET' | translate" nzTooltipPlacement="top"
-                  nz-tooltip class="btn" nz-button nzType="text" area-name="reload" nz-popconfirm
-                  (nzOnConfirm)="onReload()" [nzPopconfirmTitle]="'COMMON.CONFIRM_ACTION' | translate"
-                  nzPopconfirmPlacement="topLeft" [nzCancelText]="'MODAL.CANCEL' | translate"
-                  [nzOkText]="'MODAL.OK' | translate">
-                  <img class="icon" loading="lazy" [src]="'reload' | TTAssetsLink:'svg'" [alt]="'reload.svg'" style="height: 25px; width: 25px;">
-                </a>
-                <a [nzTooltipTitle]="'BTN_REFRESH' | translate" nzTooltipPlacement="top" nz-tooltip
-                  (click)="onRefresh()" class="btn" nz-button nzType="text" area-name="reload">
-                  <img class="icon" loading="lazy" [src]="'refresh' | TTAssetsLink:'svg'" [alt]="'refresh.svg'" style="height: 25px; width: 25px;">
-                </a>
+                <ng-container *ngIf="stateProps.showReset">
+                  <a *ngIf="!stateProps.alertReset" [nzTooltipTitle]="'BUTTON.RESET' | translate" nzTooltipPlacement="top"
+                    nz-tooltip (click)="onReload()" class="btn" nz-button nzType="text" area-name="reload">
+                    <img class="icon" loading="lazy" [src]="'reload' | TTAssetsLink:'svg'" [alt]="'reload.svg'" style="height: 25px; width: 25px;">
+                  </a>
+                  <a *ngIf="stateProps.alertReset" [nzTooltipTitle]="'BUTTON.RESET' | translate" nzTooltipPlacement="top"
+                    nz-tooltip class="btn" nz-button nzType="text" area-name="reload" nz-popconfirm
+                    (nzOnConfirm)="onReload()" [nzPopconfirmTitle]="'BUTTON.CONFIRM_ACTION' | translate"
+                    nzPopconfirmPlacement="topLeft" [nzCancelText]="'BUTTON.CANCEL' | translate"
+                    [nzOkText]="'BUTTON.OK' | translate">
+                    <img class="icon" loading="lazy" [src]="'reload' | TTAssetsLink:'svg'" [alt]="'reload.svg'" style="height: 25px; width: 25px;">
+                  </a>
+                </ng-container>
+                <ng-container *ngIf="stateProps.showRefresh">
+                  <a [nzTooltipTitle]="'BUTTON.REFRESH' | translate" nzTooltipPlacement="top" nz-tooltip
+                    (click)="onRefresh()" class="btn" nz-button nzType="text" area-name="reload">
+                    <img class="icon" loading="lazy" [src]="'refresh' | TTAssetsLink:'svg'" [alt]="'refresh.svg'" style="height: 25px; width: 25px;">
+                  </a>
+                </ng-container>
               </ng-container>
               <ng-content select="[filter-right-button]"></ng-content>
             </div>
@@ -62,7 +66,7 @@
       </div>
     </div>
   </div>
-  <div [nzTooltipTitle]="'COMMON.ADVANCED_SEARCH' | translate" nzTooltipPlacement="top" nz-tooltip
+  <div [nzTooltipTitle]="'BUTTON.ADVANCED_SEARCH' | translate" nzTooltipPlacement="top" nz-tooltip
     class="tt-table-filter-toggle" [ngClass]="{'active': showFilterMb}" (click)="showFilterMb = !showFilterMb">
     <img class="icon" loading="lazy" [src]="'filter' | TTAssetsLink:'svg'" [alt]="'filter.svg'" style="height: 25px; width: 25px;">
   </div>
@@ -112,6 +116,6 @@
     <!-- <app-loading></app-loading> -->
   </ng-template>
   <ng-template #noData>
-    <tt-empty [nzNotFoundContent]="stateProps.no_data_msg || 'error.NO_DATA' | translate"></tt-empty>
+    <tt-empty [nzNotFoundContent]="stateProps.no_data_msg || 'MESSAGE.NO_DATA' | translate"></tt-empty>
   </ng-template>
 </div>

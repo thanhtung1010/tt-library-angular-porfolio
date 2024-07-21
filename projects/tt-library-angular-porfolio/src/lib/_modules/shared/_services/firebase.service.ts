@@ -1,12 +1,12 @@
 import { Inject, Injectable } from "@angular/core";
 import { FirebaseApp, initializeApp } from "firebase/app";
-import { Auth, browserLocalPersistence, browserPopupRedirectResolver, getAuth, initializeAuth, onAuthStateChanged } from "firebase/auth";
+import { Auth, browserLocalPersistence, browserPopupRedirectResolver, getAuth, initializeAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
-import { collection, doc, Firestore, getDoc, getFirestore, where, query, getDocs, addDoc } from "firebase/firestore";
-import { from, Observable, Subscriber } from "rxjs";
+import { collection, doc, Firestore, getDoc, getFirestore, where, query, getDocs, addDoc, deleteDoc, updateDoc } from "firebase/firestore";
+import { from, Observable, of, Subscriber } from "rxjs";
 import { UserService } from ".";
 import { APP_CONFIG_TOKEN, FIRESTORE_COLLECTION } from "../../../_enums";
-import { IAppConfig, IFirestoreUser } from "../../../_interfaces";
+import { IAppConfig, IFirestoreSearchDocument, IFirestoreUser } from "../../../_interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,6 @@ export class FirebaseService {
 
   constructor(
     @Inject(APP_CONFIG_TOKEN) private appConfig: IAppConfig,
-    private userService: UserService
   ) {
   }
 
@@ -117,7 +116,7 @@ export class FirebaseService {
     });
   }
 
-  getCollection<T>(collectionName: string): Observable<Array<T>> {
+  getCollection<T>(collectionName: string, userID: string): Observable<Array<T>> {
     return new Observable<Array<T>>((subs: Subscriber<Array<T>>) => {
       try {
         if (!this.store) {
@@ -125,7 +124,8 @@ export class FirebaseService {
         }
 
         const _ref = collection(this.store as any, collectionName);
-        const _userSnap = from(getDocs(_ref));
+        const _query = query(_ref, where('userID', '==', userID));
+        const _userSnap = from(getDocs(_query));
 
         _userSnap.subscribe({
           next: resp => {
@@ -133,7 +133,11 @@ export class FirebaseService {
 
             if (!resp.empty) {
               resp.forEach((doc) => {
-                _data.push(doc.data() as T);
+                const _docdata: T = {
+                  ...doc.data() as T,
+                  firebaseID: doc.id
+                };
+                _data.push(_docdata);
               });
             }
 
@@ -176,7 +180,185 @@ export class FirebaseService {
     });
   }
 
-  logout() {}
+  updateDocument(collectionName: string, firebaseID: string, data: any): Observable<boolean> {
+    return new Observable<boolean>((subs: Subscriber<boolean>) => {
+      try {
+        if (!this.store) {
+          this.initFireStore();
+        }
+
+        const _ref = doc(this.store as any, collectionName, firebaseID);
+        from(updateDoc(_ref, data)).subscribe({
+          next: resp => {
+            subs.next(true);
+          },
+          error: error => {
+            console.error(error);
+            subs.next(false);
+          }
+        });
+      } catch (error) {
+        console.error(error);
+        subs.next(false);
+      }
+    });
+  }
+
+  searchDocument<T>(collectionName: string, userID: string, searchField: IFirestoreSearchDocument): Observable<Array<T>> {
+    return searchField.value ? this.searchDocumentWithField<T>(collectionName, userID, searchField) : this.getCollection<T>(collectionName, userID);
+  }
+
+  searchDocumentWithField<T>(collectionName: string, userID: string, searchField: IFirestoreSearchDocument): Observable<Array<T>> {
+    return new Observable<Array<T>>((subs: Subscriber<Array<T>>) => {
+      try {
+        if (!this.store) {
+          this.initFireStore();
+        }
+
+        const _ref = collection(this.store as any, collectionName);
+        const _query = query(_ref, where('userID', '==', userID));
+        const _userSnap = from(getDocs(_ref));
+
+        _userSnap.subscribe({
+          next: resp => {
+            let _data: Array<T> = [];
+
+            if (!resp.empty) {
+              resp.forEach((doc) => {
+                const _docdata: T = {
+                  ...doc.data() as T,
+                  firebaseID: doc.id
+                };
+                _data.push(_docdata);
+              });
+            }
+            _data = _data.filter((elm: any) => {
+              let returnValue: boolean = false;
+              const valueType = typeof elm[searchField.field];
+              switch (valueType) {
+                case 'string':
+                  returnValue = elm[searchField.field].includes(searchField.value);
+                  break;
+
+                default:
+                  returnValue = elm[searchField.field] === searchField.value;
+                  break;
+              }
+
+              return returnValue;
+            });
+
+            subs.next(_data);
+            subs.complete();
+          },
+          error: error => {
+            console.error(error);
+            subs.next([]);
+            subs.complete();
+          },
+        });
+      } catch (error) {
+        console.error(error);
+        subs.next([]);
+        subs.complete();
+      }
+    });
+  }
+
+  searchDocumentWithID<T>(collectionName: string, userID: string, firebaseID: string): Observable<T | null> {
+    return new Observable<T | null>((subs: Subscriber<T | null>) => {
+      try {
+        if (!this.store) {
+          this.initFireStore();
+        }
+
+        const _docref = doc(this.store as any, collectionName, firebaseID);
+        const _userSnap = from(getDoc(_docref));
+
+        _userSnap.subscribe({
+          next: resp => {
+            let _data: T | null = null;
+
+            if (resp.exists()) {
+              const _docdata: any = resp.data();
+
+              if (_docdata['userID'] && _docdata['userID'] === userID) {
+                _data = _docdata;
+              }
+            }
+
+            subs.next(_data);
+            subs.complete();
+          },
+          error: error => {
+            console.error(error);
+            subs.next(null);
+            subs.complete();
+          },
+        });
+      } catch (error) {
+        console.error(error);
+        subs.next(null);
+        subs.complete();
+      }
+    });
+  }
+
+  deleteDocumentWithID<T>(collectionName: string, firebaseID: string): Observable<boolean> {
+    return new Observable<boolean>((subs: Subscriber<boolean>) => {
+      try {
+        if (!this.store) {
+          this.initFireStore();
+        }
+
+        const _docref = doc(this.store as any, collectionName, firebaseID);
+        const _userSnap = from(deleteDoc(_docref));
+
+        _userSnap.subscribe({
+          next: resp => {
+            subs.next(true);
+            subs.complete();
+          },
+          error: error => {
+            console.error(error);
+            subs.next(false);
+            subs.complete();
+          },
+        });
+      } catch (error) {
+        console.error(error);
+        subs.next(false);
+        subs.complete();
+      }
+    });
+  }
+
+  logout(): Observable<boolean> {
+    return new Observable((subs: Subscriber<boolean>) => {
+      try {
+        if (!this.auth) {
+          subs.next(true);
+          subs.complete();
+        } else {
+          from(signOut(this.auth)).subscribe({
+            next: resp => {
+              subs.next(true);
+              subs.complete();
+            },
+            error: error => {
+              console.error("Error signing out user:", error);
+              subs.next(false);
+              subs.complete();
+            }
+          });
+        }
+      } catch (error) {
+        console.error("Error signing out user:", error);
+        subs.next(false);
+        subs.complete();
+      }
+    });
+  }
 
   getDowloadURL(path: string): Observable<string> {
     return new Observable<string>((subs: Subscriber<string>) => {

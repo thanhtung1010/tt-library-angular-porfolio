@@ -1,6 +1,10 @@
 import { IBaseBMR } from ".";
 
-export interface IFirestoreUser {
+export interface IFirestoreDocument {
+  firebaseID?: string;
+}
+
+export interface IFirestoreUser extends IFirestoreDocument {
   uuid: string;
   email: string;
   phone_number: string;
@@ -9,13 +13,12 @@ export interface IFirestoreUser {
 }
 
 export interface IFirestoreCustomerWinfitOnline {
-  userID: string;
   customerName: string;
   customerEmail: string;
   customerPhoneNumber: string;
 }
 
-export interface IFirestoreWinfitOnline extends IFirestoreCustomerWinfitOnline {
+export interface IFirestoreWinfitOnline extends IFirestoreCustomerWinfitOnline, IFirestoreDocument {
   gender: boolean;
   age: number;
   heightIndex: number;
@@ -26,4 +29,9 @@ export interface IFirestoreWinfitOnline extends IFirestoreCustomerWinfitOnline {
   fullName: string;
   email: string;
   phoneNumber: string;
+}
+
+export interface IFirestoreSearchDocument {
+  field: string;
+  value: any
 }

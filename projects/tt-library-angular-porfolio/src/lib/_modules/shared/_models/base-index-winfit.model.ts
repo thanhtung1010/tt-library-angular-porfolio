@@ -15,12 +15,19 @@ export class BaseIndexWinfitModel {
   fullName: string = '';
   email: string = '';
   phoneNumber: string = '';
+  customerName: string = '';
+  customerEmail: string = '';
+  customerPhoneNumber: string = '';
 
   constructor(baseInfo: ICalcIndexWinfit | null) {
     if (baseInfo) {
       this.checkForString('fullName', baseInfo.fullName);
       this.checkForString('email', baseInfo.email);
       this.checkForString('phoneNumber', baseInfo.phoneNumber);
+      this.checkForString('customerName', baseInfo.customerName);
+      this.checkForString('customerEmail', baseInfo.customerEmail);
+
+      this.checkPhoneNumber(baseInfo.customerPhoneNumber || '');
 
       this.checkForBoolean('gender', baseInfo.gender);
 
@@ -36,11 +43,21 @@ export class BaseIndexWinfitModel {
     }
   }
 
+  private checkPhoneNumber(value: string) {
+    if (typeof value === 'string' && value.includes('+84')) {
+      this.customerPhoneNumber = value.replace('+84', '');
+    } else {
+      this.customerPhoneNumber = value;
+    }
+  }
+
   private checkForString(
     param:
       | 'fullName'
       | 'email'
-      | 'phoneNumber',
+      | 'phoneNumber'
+      | 'customerName'
+      | 'customerEmail',
     value: any,
   ) {
     if (typeof value === 'string') {
@@ -78,5 +95,11 @@ export class BaseIndexWinfitModel {
         this[param] = NaN;
         break;
     }
+  }
+
+  get getData(): Record<string, any> {
+    return {
+      ...this,
+    };
   }
 }

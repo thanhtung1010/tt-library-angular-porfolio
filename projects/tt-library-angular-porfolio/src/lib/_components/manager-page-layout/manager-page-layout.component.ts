@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { AppConfigService, UserService } from '../../_modules/shared/_services';
-import { AssetsLink } from '../../_pipes';
 import { ManagerHeaderComponent, ManagerSidebarComponent } from '..';
+import { ROUTE } from '../../_enums';
+import { CommonService, FirebaseService } from '../../_modules/shared/_services';
+import { AssetsLink } from '../../_pipes';
 
 @Component({
   selector: 'tt-manager-page-layout',
@@ -34,8 +35,8 @@ export class ManagerPageLayoutComponent implements OnInit, OnDestroy, AfterViewI
   isCollapsed: boolean = true;
 
   constructor(
-    private appConfig: AppConfigService,
-    private userService: UserService,
+    private firebaseService: FirebaseService,
+    private commonService: CommonService,
   ) {
   }
 
@@ -144,7 +145,13 @@ export class ManagerPageLayoutComponent implements OnInit, OnDestroy, AfterViewI
    * Log out of system
    */
   logout() {
-    this.userService.logout();
+    this.firebaseService.logout().subscribe(resp => {
+      if (resp) {
+        this.commonService.gotoURL(`${ROUTE.AUTH}`, null, true);
+      } else {
+        this.commonService.showError();
+      }
+    });
   }
 
 }

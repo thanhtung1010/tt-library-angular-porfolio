@@ -27,6 +27,4 @@ export class UserService {
   set _uuid(uuid: string) {
     this._user.value._uuid = uuid;
   }
-
-  logout() {}
 }
