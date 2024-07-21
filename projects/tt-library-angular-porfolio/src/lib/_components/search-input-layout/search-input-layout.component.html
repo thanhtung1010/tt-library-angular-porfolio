@@ -1,0 +1,9 @@
+<label [ngClass]="{'tt-required' : required}" class="tt-mb-10 tt-label" nz-col [nzSpan]="24">
+  {{label | translate }}
+</label>
+<nz-input-group [nzPrefix]="prefixTemplateSearch" nz-col [nzSpan]="24">
+  <ng-content select="[body]"></ng-content>
+  <ng-template #prefixTemplateSearch>
+    <img class="tt-mr-10" loading="lazy" [src]="'search' | TTAssetsLink:'svg'" [alt]="'search.svg'" style="height: 10px; width: 10px;">
+  </ng-template>
+</nz-input-group>

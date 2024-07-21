@@ -1,23 +1,29 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { MENU } from "../../../_enums";
-import { IMenuItem } from "../../../_interfaces";
+import { MANAGER_MENU, MENU } from "../../../_enums";
+import { IManagerMenuItem, IMenuItem } from "../../../_interfaces";
+import { AppConfigService } from "./app-config.service";
 
 @Injectable({
   providedIn: "root"
 })
 
 export class MenuService {
-
-  menu$: BehaviorSubject<Array<IMenuItem>> = new BehaviorSubject([] as Array<IMenuItem>);
+  //#region variable
+  private managerMenu$: BehaviorSubject<Array<IManagerMenuItem>> = new BehaviorSubject([] as Array<IManagerMenuItem>);
+  private menu$: BehaviorSubject<Array<IMenuItem>> = new BehaviorSubject([] as Array<IMenuItem>);
   toggleVisibleMenu$: BehaviorSubject<boolean> = new BehaviorSubject(false)
 
   hiddenScrollCls: string = 'tt-hidden_scroll';
+  //#endregion
 
-  constructor() {}
+  constructor(
+    private appConfigSerice: AppConfigService,
+  ) {}
 
   init() {
-    const _menu = MENU.filter(menuItem => menuItem.show).map(menu => {
+    const isProdEnv = this.appConfigSerice.appConfig.production;
+    const _menu = MENU.filter(menuItem => isProdEnv ? menuItem.show : true).map(menu => {
       return {
         ...menu,
         active: location.pathname === menu.href,
@@ -26,8 +32,23 @@ export class MenuService {
     this.menu$.next(_menu);
   }
 
+  initManagerMenu() {
+    const isProdEnv = this.appConfigSerice.appConfig.production;
+    const _menu = MANAGER_MENU.filter(menuItem => isProdEnv ? menuItem.showMenu : true).map(menu => {
+      return {
+        ...menu,
+        active: location.pathname === menu.path,
+      }
+    });
+    this.managerMenu$.next(_menu);
+  }
+
   get getMenu(): IMenuItem[] {
     return this.menu$.value;
+  }
+
+  get getManagerMenu(): IManagerMenuItem[] {
+    return this.managerMenu$.value;
   }
 
   activeRouter(activeIndex: number) {

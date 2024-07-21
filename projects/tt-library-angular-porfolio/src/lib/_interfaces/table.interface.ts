@@ -26,7 +26,8 @@ export interface IAntTableElement<T> {
   showBum?: boolean;
   sortOrder?: string;
   isHide?: boolean;
-  isLock?: boolean;
+  nzLeft?: boolean;
+  nzRight?: boolean;
   country?: string;
   separator?: string; // Specifies a string to separate each pair of adjacent elements of the array - fieldType = array
 }

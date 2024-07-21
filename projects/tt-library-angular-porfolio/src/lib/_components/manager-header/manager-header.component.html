@@ -1,0 +1,106 @@
+<div class="tt-manager-header-wrapper" [ngClass]="{'open': menuMb.rightMenu}">
+  <!-- <div class="left">
+    <ul class="links">
+      <li class="item" *ngIf="emails && emails['customerService'] && emails.customerService.address">
+        <a [attr.href]="'mailto:' + emails.customerService.address + '?subject=' + emails.customerService.title"
+          nz-tooltip [nzTooltipTitle]="cusServiceTemplate" nzTooltipPlacement="bottomLeft">
+          <svg [outerHTML]="'email-circle' | svgIcon:{class:'icon'}" class="icon"></svg>
+          <ng-container [ngTemplateOutlet]="cusServiceTemplate"></ng-container>
+        </a>
+        <ng-template #cusServiceTemplate>
+          <span class="text" [innerHTML]="'HEAD.LINK_CUSTOMER_SERV' | translate">
+          </span>
+        </ng-template>
+      </li>
+      <li class="item" *ngIf="emails && emails['itService'] && emails.itService.address">
+        <a [attr.href]="'mailto:' + emails.itService.address + '?subject=' + emails.itService.title + '&cc=' + emails.itService.cc" nz-tooltip
+          [nzTooltipTitle]="itServiceTemplate" nzTooltipPlacement="bottomLeft">
+          <svg [outerHTML]="'question-circle' | svgIcon:{class:'icon'}" class="icon"></svg>
+          <ng-container [ngTemplateOutlet]="itServiceTemplate"></ng-container>
+        </a>
+        <ng-template #itServiceTemplate>
+          <span class="text" [innerHTML]="'HEAD.LINK_IT_SERV' | translate"></span>
+        </ng-template>
+      </li>
+    </ul>
+  </div> -->
+  <!-- <div class="center"></div> -->
+  <div class="right">
+    <ul class="menu" *ngIf="!loading.profile">
+      <li class="item">
+        <img class="tt-mr-10" loading="lazy" [src]="'font-typo' | TTAssetsLink:'svg'" [alt]="'font-typo.svg'" style="height: 30px; width: 30px;">
+        <span class="text">
+          <nz-select (ngModelChange)="onZoomUI($event)" nzSuffixIcon="caret-down" [(ngModel)]="currentZoom"
+            class="select-lang" style="width: 100px;">
+            <nz-option [nzHide]="item.value === currentZoom" *ngFor="let item of zooms" [nzValue]="item.value"
+              [nzLabel]="item.text | translate">
+            </nz-option>
+          </nz-select>
+        </span>
+      </li>
+      <div class="divider"></div>
+      <li class="item">
+        <img class="tt-mr-10" loading="lazy" [src]="'earth' | TTAssetsLink:'svg'" [alt]="'earth.svg'" style="height: 30px; width: 30px;">
+        <span class="text">
+          <nz-select (ngModelChange)="onChangeLanguage($event)" nzSuffixIcon="caret-down" [(ngModel)]="currentLang"
+            class="select-lang" style="width: 100px;">
+            <nz-option [nzDisabled]="true" [nzHide]="item.lang === currentLang" *ngFor="let item of languages" [nzValue]="item.lang"
+              [nzLabel]="item.label | translate">
+            </nz-option>
+          </nz-select>
+        </span>
+      </li>
+      <div class="divider"></div>
+      <li class="item tt-cursor tt-align-right" nz-popover [nzPopoverContent]="profilePopOverTemplate" (click)="onToggleProfilePopOver()"
+        nzPopoverPlacement="bottomRight" [nzPopoverTrigger]="null" [(nzPopoverVisible)]="visibleProfilePopOver"
+        [nzPopoverOverlayClassName]="'tt-manager-header-profile-wrapper'">
+        <!-- <svg [outerHTML]="'header_user' | svgIcon:{class:'icon'}" class="icon"></svg> -->
+        <div class="tt-manager-header-ava tt-manager-header-ava-fill">
+          <div class="text">{{avaName}}</div>
+        </div>
+        <div class="text-mb-flex text-mb">{{fullNameUser}}</div>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="tt-manager-header-wrapper-toggle" (click)="menuMb.rightMenu = !menuMb.rightMenu">
+  <span class="toggle-button" [style.transform]="menuMb.rightMenu ? 'rotate(-180deg) translate(0px, 5px)' : ''">
+    <img loading="lazy" [src]="'burger-menu-right' | TTAssetsLink:'svg'" [alt]="'burger-menu-right.svg'" style="height: 30px; width: 30px;">
+  </span>
+</div>
+
+<ng-template #profilePopOverTemplate>
+  <div *ngIf="fullNameUser" class="tt-manager-header-profile">
+    <div class="top">
+      <div class="left">{{'COMMON.TUNG_DEV' | translate}}</div>
+      <div class="space"></div>
+      <div class="right">
+        <button class="tt-block" nzDanger style="width: 100%" nz-button nzType="text" (click)="onLogout()">
+          {{'HEAD.LOG_OUT' | translate}}
+        </button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="left">
+        <div class="tt-manager-header-ava large">
+          <div class="text">{{avaName}}</div>
+        </div>
+      </div>
+      <div class="main">
+        <div class="title">{{fullNameUser}}</div>
+        <p *ngIf="currentUser?.userProfile">{{currentUser.userProfile.email}}</p>
+        <p *ngIf="currentUser?.role">{{'ADMIN.ROLE.title' | translate }}: {{currentUser?.role.name}}</p>
+        <div class="bottom">
+          <!-- <a *ngIf="!isBscAccount" class="tt-block tt-label tt-align-left" style="width: 100%" (click)="onClickChangePass()">
+            {{'COMMON.CHANGE_PASS' | translate}}
+          </a> -->
+          <!-- <ng-container *ngIf="!isHiddenSwitchCountry" >
+            <a class="tt-block tt-label tt-align-left" style="width: 100%" (click)="onClickSwitchCountry()">
+              {{'login.SWITCH_COUNTRY' | translate}}
+            </a>
+          </ng-container> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

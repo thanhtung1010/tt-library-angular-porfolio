@@ -5,3 +5,5 @@ export * from './common.service';
 export * from './device-id.service';
 export * from './menu.service';
 export * from './firebase.service';
+export * from './user.service';
+export * from './winfit-online.service';

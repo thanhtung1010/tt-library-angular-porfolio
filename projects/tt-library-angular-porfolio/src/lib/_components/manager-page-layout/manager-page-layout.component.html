@@ -1,0 +1,36 @@
+<ng-container *ngIf="!isLoadingInfo">
+  <nz-layout class="tt-wrapper">
+    <div class="tt-manager-header">
+      <tt-manager-header (logout)="logout()"></tt-manager-header>
+    </div>
+    <nz-sider class="menu-sidebar tt-sidebar" [nzCollapsedWidth]="0" nzCollapsible nzBreakpoint="lg"
+      [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+      <tt-manager-sidebar></tt-manager-sidebar>
+    </nz-sider>
+    <div class="tt-sidebar-toggle tt-cursor" (click)="isCollapsed = !isCollapsed"
+      [style.transform]="isCollapsed ? 'rotate(-180deg)' : ''">
+      <img loading="lazy" [src]="'hamburger' | TTAssetsLink:'svg'" [alt]="'hamburger.svg'">
+    </div>
+    <nz-layout>
+      <nz-content>
+        <div class="inner-content" *ngIf="!isLoadingInfo">
+          <div class="tt-page {{fixedFooter ? pageFixCls : ''}}" #pageElement>
+            <div class="tt-page-head">
+              <ng-content select="[header]">
+              </ng-content>
+            </div>
+            <div class="tt-page-content">
+              <ng-content select="[body]"></ng-content>
+            </div>
+            <div class="tt-page-footer" #pageFooter>
+              <ng-content select="[footer]"></ng-content>
+            </div>
+          </div>
+        </div>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</ng-container>
+<div class="back-to-top"></div>
+<!-- <ngx-loading-bar [fixed]="true" [includeSpinner]="false" color="#005fff"></ngx-loading-bar> -->
+<!-- <app-dc-pickup></app-dc-pickup> -->

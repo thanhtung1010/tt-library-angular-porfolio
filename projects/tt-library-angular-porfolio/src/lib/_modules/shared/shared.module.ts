@@ -8,6 +8,8 @@ import {
   MenuService,
   APIService,
   FirebaseService,
+  UserService,
+  WinfitOnlineService,
 } from './_services';
 import { CommonModule } from '@angular/common';
 
@@ -52,6 +54,8 @@ export class SharedModule {
         CommonService,
         DeviceIdService,
         MenuService,
+        UserService,
+        WinfitOnlineService,
       ]
     }
   }

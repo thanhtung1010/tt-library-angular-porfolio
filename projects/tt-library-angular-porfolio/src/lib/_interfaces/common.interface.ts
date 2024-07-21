@@ -14,6 +14,31 @@ export interface IMenuItem {
   active: boolean;
 };
 
+export interface IManagerMenuItem {
+  code: string;
+  title: string;
+  path: string;
+  showMenu: boolean;
+  level?: number;
+  icon: string;
+
+  childList?: IManagerMenuItem[];
+  openChild?: boolean;
+  authGuard?: boolean;
+  isActive?: boolean;
+
+  roles?: any[];
+  modules?: string[];
+  parentList?: IManagerMenuItem[];
+  parentTitle?: string;
+  height?: number;
+  tempId?: string;
+
+  translatedTitle?: string;
+
+  order?: number;
+}
+
 export interface ISocialNetwork {
   name: string;
   type: ASSETS_TYPE;

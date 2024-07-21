@@ -1,0 +1,5 @@
+<label *ngIf="showLabel" class="tt-mb-10 tt-label" nz-col [nzSpan]="24" [ngClass]="{'tt-required': required}">
+  {{ label | translate }}
+</label>
+
+<ng-content select="[body]"></ng-content>
