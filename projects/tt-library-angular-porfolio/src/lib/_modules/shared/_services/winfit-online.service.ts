@@ -69,7 +69,7 @@ export class WinfitOnlineService {
         bmiFrom: 2.5,
         bmiTo: 18.4,
         bmi: NaN,
-        type: 'TABLE.FITNESS',
+        type: 'TABLE.UNDERWEIGHT',
       },
       {
         bmiFrom: 18.5,
