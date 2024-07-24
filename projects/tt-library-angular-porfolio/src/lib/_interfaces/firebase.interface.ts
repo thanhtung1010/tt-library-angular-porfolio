@@ -29,6 +29,9 @@ export interface IFirestoreWinfitOnline extends IFirestoreCustomerWinfitOnline, 
   fullName: string;
   email: string;
   phoneNumber: string;
+  bodyFatIndex: number;
+  visceralFatIndex: number;
+  skeletalMusclesIndex: number;
 }
 
 export interface IFirestoreSearchDocument {

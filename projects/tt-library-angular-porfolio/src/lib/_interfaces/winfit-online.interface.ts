@@ -3,7 +3,9 @@ export interface IBaseInfor {
   gender: boolean;
   heightIndex: number;
   weightIndex: number;
-  lbm?: number;
+  bodyFatIndex: number;
+  visceralFatIndex: number;
+  skeletalMusclesIndex: number;
 }
 
 export interface ICalcIndexWinfit extends IBaseCustomerInfo {
@@ -13,6 +15,10 @@ export interface ICalcIndexWinfit extends IBaseCustomerInfo {
   weightIndex: number;
   bmr?: IBaseBMR;
   bmi?: number;
+  lbm?: IBaseLBM;
+  bodyFatIndex?: number;
+  visceralFatIndex?: number;
+  skeletalMusclesIndex?: number;
   waterNeeded?: number;
   fullName?: string;
   email?: string;
@@ -31,25 +37,32 @@ export interface IBaseBMR {
   katchMcArdle?: number;
 }
 
-export interface IBaseSkeletalMusclesData {
-  for: string;
-  lowFrom: number;
-  lowTo: number;
-  normalFrom: number;
-  normalTo: number;
-  goodFrom: number;
-  goodTo: number;
-  veryGoodFrom: number;
-  veryGoodTo: number;
+export interface IBaseLBM {
+  index?: number;
+  boer: number;
+  james: number;
+  hume: number;
 }
 
-export interface IBaseVisceralFatData {
+export interface ICommonBaseData {
+  active?: boolean;
+}
+
+export interface IBaseSkeletalMusclesData extends ICommonBaseData {
+  type: string;
+  manFrom: number;
+  manTo: number;
+  womanFrom: number;
+  womanTo: number;
+}
+
+export interface IBaseVisceralFatData extends ICommonBaseData {
   levelVisceralFatFrom: number;
   levelVisceralFatTo: number;
   type: string;
 }
 
-export interface IBaseBodyFatData {
+export interface IBaseBodyFatData extends ICommonBaseData {
   indexForManFrom: number;
   indexForManTo: number;
   indexForWomanFrom: number;
@@ -57,14 +70,14 @@ export interface IBaseBodyFatData {
   type: string;
 }
 
-export interface IBaseMBIData {
+export interface IBaseMBIData extends ICommonBaseData {
   bmiFrom: number;
   bmiTo: number;
   bmi: number;
   type: string;
 }
 
-export interface IBaseMBRData {
+export interface IBaseMBRData extends ICommonBaseData {
   ageFrom: number;
   ageTo: number;
   bmr: number;

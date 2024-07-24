@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Observable, Subject, Subscriber } from "rxjs";
+import { BehaviorSubject, Observable, Subject, Subscriber } from "rxjs";
 import { FirebaseService } from ".";
 import { FIRESTORE_COLLECTION } from "../../../_enums";
-import { IBaseBMR, IBaseCustomerInfo, IBaseInfor, IBaseWinfitOnlineData } from "../../../_interfaces";
+import { IBaseBMR, IBaseCustomerInfo, IBaseInfor, IBaseLBM, IBaseWinfitOnlineData } from "../../../_interfaces";
 import { AppUserModel, BaseIndexWinfitModel } from "../_models";
+import { BASE_WINFIT_ONLINE_DATA } from "../../../_enums/winfit-online.enum";
 
 @Injectable({
   providedIn: 'root'
@@ -12,167 +13,7 @@ import { AppUserModel, BaseIndexWinfitModel } from "../_models";
 export class WinfitOnlineService {
   private _baseIndexWinfit: BaseIndexWinfitModel = new BaseIndexWinfitModel(null);
   baseIndexWinfit$: Subject<BaseIndexWinfitModel> = new Subject();
-  baseWinfitOnlineData: IBaseWinfitOnlineData = {
-    baseMBRData: [
-      {
-        ageFrom: 10,
-        ageTo: 11,
-        bmr: NaN,
-        manBMR: 37.4,
-        womanBMR: 34.8,
-      },
-      {
-        ageFrom: 12,
-        ageTo: 14,
-        bmr: NaN,
-        manBMR: 31,
-        womanBMR: 29.6,
-      },
-      {
-        ageFrom: 15,
-        ageTo: 17,
-        bmr: NaN,
-        manBMR: 27,
-        womanBMR: 25.3,
-      },
-      {
-        ageFrom: 18,
-        ageTo: 29,
-        bmr: NaN,
-        manBMR: 24,
-        womanBMR: 22.1,
-      },
-      {
-        ageFrom: 30,
-        ageTo: 49,
-        bmr: NaN,
-        manBMR: 22.3,
-        womanBMR: 21.7,
-      },
-      {
-        ageFrom: 50,
-        ageTo: 69,
-        bmr: NaN,
-        manBMR: 21.5,
-        womanBMR: 20.7,
-      },
-      {
-        ageFrom: 70,
-        ageTo: NaN,
-        bmr: NaN,
-        manBMR: 21.5,
-        womanBMR: 20.7,
-      },
-    ],
-    baseMBIData: [
-      {
-        bmiFrom: 2.5,
-        bmiTo: 18.4,
-        bmi: NaN,
-        type: 'TABLE.UNDERWEIGHT',
-      },
-      {
-        bmiFrom: 18.5,
-        bmiTo: 22.9,
-        bmi: NaN,
-        type: 'TABLE.BALANCE',
-      },
-      {
-        bmiFrom: 23,
-        bmiTo: 24.9,
-        bmi: NaN,
-        type: 'TABLE.OVERWEIGHT',
-      },
-      {
-        bmiFrom: 25,
-        bmiTo: 29.9,
-        bmi: NaN,
-        type: 'TABLE.OBESITY',
-      },
-      {
-        bmiFrom: 30,
-        bmiTo: 50,
-        bmi: NaN,
-        type: 'TABLE.DANGEROUS_OBESITY',
-      },
-    ],
-    baseBodyFatData: [
-      {
-        indexForManFrom: 3,
-        indexForManTo: 10,
-        indexForWomanFrom: 12,
-        indexForWomanTo: 18,
-        type: 'TABLE.FITNESS',
-      },
-      {
-        indexForManFrom: 10,
-        indexForManTo: 20,
-        indexForWomanFrom: 18,
-        indexForWomanTo: 28,
-        type: 'TABLE.BALANCE',
-      },
-      {
-        indexForManFrom: 20,
-        indexForManTo: 25,
-        indexForWomanFrom: 28,
-        indexForWomanTo: 32,
-        type: 'TABLE.HIGH',
-      },
-      {
-        indexForManFrom: 25,
-        indexForManTo: NaN,
-        indexForWomanFrom: 32,
-        indexForWomanTo: NaN,
-        type: 'TABLE.VERY_HIGH',
-      },
-    ],
-    baseVisceralFatData: [
-      {
-        levelVisceralFatFrom: 1,
-        levelVisceralFatTo: 3,
-        type: 'TABLE.GOOD',
-      },
-      {
-        levelVisceralFatFrom: 3,
-        levelVisceralFatTo: 9,
-        type: 'TABLE.HIGH',
-      },
-      {
-        levelVisceralFatFrom: 10,
-        levelVisceralFatTo: 14,
-        type: 'TABLE.DANGER',
-      },
-      {
-        levelVisceralFatFrom: 15,
-        levelVisceralFatTo: 30,
-        type: 'TABLE.VERY_DANGER',
-      },
-    ],
-    baseSkeletalMusclesData: [
-      {
-        for: 'TABLE.WOMAN',
-        lowFrom: 5,
-        lowTo: 26,
-        normalFrom: 26,
-        normalTo: 29,
-        goodFrom: 29,
-        goodTo: 31,
-        veryGoodFrom: 31,
-        veryGoodTo: 60,
-      },
-      {
-        for: 'TABLE.MAN',
-        lowFrom: 5,
-        lowTo: 33,
-        normalFrom: 33,
-        normalTo: 37,
-        goodFrom: 37,
-        goodTo: 40,
-        veryGoodFrom: 40,
-        veryGoodTo: 60,
-      },
-    ],
-  };
+  baseWinfitOnlineData$: BehaviorSubject<IBaseWinfitOnlineData> = new BehaviorSubject(BASE_WINFIT_ONLINE_DATA);
 
   constructor(
     private fireBaseService: FirebaseService,
@@ -187,6 +28,9 @@ export class WinfitOnlineService {
     this._baseIndexWinfit.gender = baseInfor.gender;
     this._baseIndexWinfit.heightIndex = baseInfor.heightIndex;
     this._baseIndexWinfit.weightIndex = baseInfor.weightIndex;
+    this._baseIndexWinfit.bodyFatIndex = baseInfor.bodyFatIndex;
+    this._baseIndexWinfit.visceralFatIndex = baseInfor.visceralFatIndex;
+    this._baseIndexWinfit.skeletalMusclesIndex = baseInfor.skeletalMusclesIndex;
     this.callApply();
   }
 
@@ -207,6 +51,10 @@ export class WinfitOnlineService {
   set setBMI(bmi: number) {
     this._baseIndexWinfit.bmi = bmi;
     this.callApply();
+  }
+
+  set setLBM(lbm: IBaseLBM) {
+    this._baseIndexWinfit.lbm = lbm;
   }
 
   set setWaterNeeded(waterNeeded: number) {
@@ -230,7 +78,69 @@ export class WinfitOnlineService {
 
   callApply() {
     this._baseIndexWinfit = new BaseIndexWinfitModel(this._baseIndexWinfit);
+    this.checkActiveBaseData();
     this.baseIndexWinfit$.next(this._baseIndexWinfit);
+  }
+
+  callApplyBaseData(baseData: IBaseWinfitOnlineData) {
+    this.baseWinfitOnlineData$.next(baseData);
+  }
+
+  checkActiveBaseData() {
+    const currentBaseData = this.baseWinfitOnlineData$.value;
+
+    for (const field in currentBaseData) {
+      const _field: keyof IBaseWinfitOnlineData = field as keyof IBaseWinfitOnlineData;
+      let currentDataByField: any[] = currentBaseData[_field];
+
+      switch (_field) {
+        case 'baseMBRData':
+          currentDataByField = currentDataByField.map(elm => {
+            elm.active = this._baseIndexWinfit.age >= elm.ageFrom && this._baseIndexWinfit.age <= elm.ageTo;
+            return elm;
+          });
+          break;
+        case 'baseMBIData':
+          currentDataByField = currentDataByField.map(elm => {
+            elm.active = this._baseIndexWinfit.bmi >= elm.bmiFrom && this._baseIndexWinfit.bmi <= elm.bmiTo;
+            return elm;
+          });
+          break;
+        case 'baseBodyFatData':
+          currentDataByField = currentDataByField.map(elm => {
+            if (this._baseIndexWinfit.gender) {
+              elm.active = this._baseIndexWinfit.bodyFatIndex >= elm.indexForManFrom && this._baseIndexWinfit.bodyFatIndex <= elm.indexForManTo;
+            } else {
+              elm.active = this._baseIndexWinfit.bodyFatIndex >= elm.indexForWomanFrom && this._baseIndexWinfit.bodyFatIndex <= elm.indexForWomanTo;
+            }
+            return elm;
+          });
+          break;
+        case 'baseSkeletalMusclesData':
+          currentDataByField = currentDataByField.map(elm => {
+            if (this._baseIndexWinfit.gender) {
+              elm.active = this._baseIndexWinfit.skeletalMusclesIndex >= elm.manFrom && this._baseIndexWinfit.skeletalMusclesIndex <= elm.manTo;
+            } else {
+              elm.active = this._baseIndexWinfit.skeletalMusclesIndex >= elm.womanFrom && this._baseIndexWinfit.skeletalMusclesIndex <= elm.womanTo;
+            }
+            return elm;
+          });
+          break;
+        case 'baseVisceralFatData':
+          currentDataByField = currentDataByField.map(elm => {
+            elm.active = this._baseIndexWinfit.visceralFatIndex >= elm.levelVisceralFatFrom && this._baseIndexWinfit.visceralFatIndex <= elm.levelVisceralFatTo;
+            return elm;
+          });
+          break;
+
+        default:
+          break;
+      }
+
+      currentBaseData[_field] = currentDataByField;
+    }
+
+    this.callApplyBaseData(currentBaseData);
   }
 
   calcBMR(baseInfor: IBaseInfor) {
@@ -245,14 +155,48 @@ export class WinfitOnlineService {
       harrisBenedict = 655 + (9.6 * baseInfor.weightIndex) + (1.8 * baseInfor.heightIndex) + (4.7 * baseInfor.age);
       mifflinStJeor = (10 * baseInfor.weightIndex) + (6.25 * baseInfor.heightIndex) - (5 * baseInfor.age) - 161;
     }
-    if (baseInfor.lbm) {
-      katchMcArdle = +(370 + (21.6 * baseInfor.lbm)).toFixed(2);
+
+    this.baseIndexWinfit.lbm = this.calcLBM(baseInfor);
+    const lbm = this.baseIndexWinfit.lbm.index && !Number.isNaN(this.baseIndexWinfit.lbm.index) ? this.baseIndexWinfit.lbm.index : null;
+    if (lbm) {
+      katchMcArdle = +(370 + (21.6 * lbm)).toFixed(2);
     }
+
     this.setBMR = {
       harrisBenedict: +harrisBenedict.toFixed(2),
       mifflinStJeor: +mifflinStJeor.toFixed(2),
       katchMcArdle
     };
+  }
+
+  private calcLBM (baseInfo: IBaseInfor): IBaseLBM {
+    let index: number = NaN;
+    let boer: number = NaN;
+    let james: number = NaN;
+    let hume: number = NaN;
+    const weight = baseInfo.weightIndex;
+    const height = baseInfo.heightIndex;
+
+    if (baseInfo.gender) {
+      boer = (0.407 * weight) + (0.267 * height) - 19.2;
+      james = (1.1 * weight) - 128 * Math.pow(weight / height, 2);
+      hume = (0.32810 * weight) + (0.33929 * height) - 29.5336;
+    } else {
+      boer = (0.252 * weight) + (0.473 * height) - 48.3;
+      james = (1.07 * weight) - 148 * Math.pow(weight / height, 2);
+      hume = (0.29569 * weight) + (0.41813 * height) - 43.2933;
+    }
+
+    if (baseInfo.bodyFatIndex) {
+      index = weight - ((weight * baseInfo.bodyFatIndex) / 100);
+    }
+
+    return {
+      boer: +boer.toFixed(2),
+      james: +james.toFixed(2),
+      hume: +hume.toFixed(2),
+      index
+    }
   }
 
   calcBMI(baseInfor: IBaseInfor) {

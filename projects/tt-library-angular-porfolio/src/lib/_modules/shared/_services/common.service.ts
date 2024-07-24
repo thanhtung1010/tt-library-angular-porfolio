@@ -20,6 +20,10 @@ export class CommonService {
     private message: NzMessageService,
   ) {}
 
+  get url(): string {
+    return this._router.url;
+  }
+
   gotoURL(url: string, queryParams?: any, reload?: boolean) {
     if (queryParams) {
       if (reload) {

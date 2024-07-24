@@ -5,7 +5,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { BehaviorSubject, delay } from 'rxjs';
 import { IManagerMenuItem } from '../../_interfaces';
-import { AppConfigService, MenuService } from '../../_modules/shared/_services';
+import { AppConfigService, CommonService, MenuService } from '../../_modules/shared/_services';
 import { AssetsLink } from '../../_pipes';
 
 @Component({
@@ -34,7 +34,8 @@ export class ManagerSidebarComponent implements OnInit, OnDestroy, AfterViewInit
   constructor(
     private appConfig: AppConfigService,
     private menuService: MenuService,
-    private router: Router,
+    private commonService: CommonService,
+    // private router: Router,
     // private translate: TranslateService
   ) { }
 
@@ -51,6 +52,11 @@ export class ManagerSidebarComponent implements OnInit, OnDestroy, AfterViewInit
       if (item) this.resetHeightMenu(item)
     });
     this.homePage = this.menu && this.menu.length > 0 ? this.menu[0].path : '';
+
+    const currentPath = location.pathname;
+    if (!currentPath.includes(this.homePage) && !this.menu.find(elm => currentPath.includes(elm.path))) {
+      this.commonService.gotoURL(this.homePage);
+    }
 
     // this.setTranslatedTitle();
     // this.translate.onLangChange.subscribe(() => {
@@ -69,7 +75,7 @@ export class ManagerSidebarComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   activeSideBar(scrollToView = false) {
-    const _url = this.router.url;
+    const _url = this.commonService.url;
     const _parentReacher = _url.replace('/', '').split('/')[0] || '';
     if (this.menu && this.menu.length > 0) {
       this.menu.forEach((item, index) => {

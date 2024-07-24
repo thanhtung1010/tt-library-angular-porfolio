@@ -1,4 +1,4 @@
-import { IBaseBMR, ICalcIndexWinfit } from "../../../_interfaces";
+import { IBaseBMR, IBaseLBM, ICalcIndexWinfit } from "../../../_interfaces";
 
 export class BaseIndexWinfitModel {
   gender: boolean = false;
@@ -11,6 +11,15 @@ export class BaseIndexWinfitModel {
     katchMcArdle: NaN,
   };
   bmi: number = NaN;
+  lbm: IBaseLBM = {
+    index: NaN,
+    boer: NaN,
+    james: NaN,
+    hume: NaN,
+  };
+  bodyFatIndex: number = NaN;
+  visceralFatIndex: number = NaN;
+  skeletalMusclesIndex: number = NaN;
   waterNeeded: number = NaN;
   fullName: string = '';
   email: string = '';
@@ -36,9 +45,16 @@ export class BaseIndexWinfitModel {
       this.checkForNumber('weightIndex', baseInfo.weightIndex);
       this.checkForNumber('bmi', baseInfo.bmi);
       this.checkForNumber('waterNeeded', baseInfo.waterNeeded);
+      this.checkForNumber('bodyFatIndex', baseInfo.bodyFatIndex);
+      this.checkForNumber('visceralFatIndex', baseInfo.visceralFatIndex);
+      this.checkForNumber('skeletalMusclesIndex', baseInfo.skeletalMusclesIndex);
 
       if (typeof baseInfo['bmr'] === 'object') {
         this.bmr = baseInfo['bmr'];
+      }
+
+      if (typeof baseInfo['lbm'] === 'object') {
+        this.lbm = baseInfo['lbm'];
       }
     }
   }
@@ -58,7 +74,7 @@ export class BaseIndexWinfitModel {
       | 'phoneNumber'
       | 'customerName'
       | 'customerEmail',
-    value: any,
+    value: any
   ) {
     if (typeof value === 'string') {
       this[param] = value;
@@ -78,8 +94,16 @@ export class BaseIndexWinfitModel {
   }
 
   private checkForNumber(
-    param: 'age' | 'heightIndex' | 'weightIndex' | 'bmi' | 'waterNeeded',
-    value: any,
+    param:
+      | 'age'
+      | 'heightIndex'
+      | 'weightIndex'
+      | 'bmi'
+      | 'waterNeeded'
+      | 'skeletalMusclesIndex'
+      | 'visceralFatIndex'
+      | 'bodyFatIndex',
+    value: any
   ) {
     const valueType = typeof value;
     switch (valueType) {
